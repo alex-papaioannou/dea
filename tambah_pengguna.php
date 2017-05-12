@@ -30,10 +30,17 @@
 								      	<label class="col-sm-3 control-label">Cabang Klinik</label>
 								      	<div class="col-sm-6">
 								        	<select name="cabang_klinik" class="form-control" required>
-								        		<option value="" selected="selected"> -- Pilih Cabang -- </option>
-								          		<option value="">Kalipancur</option>
-								          		<option value="">Banyumanik</option>
-								          		<option value="">Manyaran</option>
+								        		<option value=""> -- Pilih Cabang -- </option>
+								        		<?php
+								        			$query = mysqli_query($conn, "SELECT * FROM tb_klinik");
+								        			if (mysqli_num_rows($query) > 0) {
+													    // output data of each row
+													    while($cabang = mysqli_fetch_assoc($query)) {
+													    	$id_cabang = $cabang['id_klinik'];
+													    	echo '<option value="'.$id_cabang.'">'.$cabang["cabang_klinik"].'</option>';
+													    }
+													}
+								        		?>
 								        	</select>
 								      	</div>
 								    </div>
