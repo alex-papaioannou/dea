@@ -54,19 +54,34 @@
 										</tr>
 									</thead>
 									<tbody>
-										<tr>
-											<td>1</td>
-											<td>Kalipancur</td>
-											<td>2</td>
-											<td>2</td>
-											<td>1</td>
-											<td>100</td>
-											<td>20</td><td>20</td>
-											<td>
-												<a href="#" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-edit"></span></a>
-												<a href="#" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-remove"></span></a>
-							        		</td>
-										</tr>
+										<?php
+											$i = 1;
+											$query = mysqli_query($conn, "SELECT k.cabang_klinik, d.id_klinik FROM tb_klinik AS k, tb_detail_dmu AS d WHERE k.id_klinik=d.id_klinik GROUP BY id_klinik");
+											if (mysqli_num_rows($query)) {
+												while ($cabang = mysqli_fetch_assoc($query)) {
+													echo '
+														<tr>
+															<td>'.$i.'</td>
+															<td>'.$cabang["cabang_klinik"].'</td>
+													';
+													$id_klinik = $cabang['id_klinik'];
+													$query2 = mysqli_query($conn, 'SELECT d.nilai_variabel FROM tb_detail_dmu AS d, tb_variabel AS v WHERE d.id_variabel=v.id_variabel AND id_klinik='.$id_klinik.' ORDER BY v.jenis_variabel ASC, d.id_variabel');
+													if (mysqli_num_rows($query2)) {
+														while ($nilai_var = mysqli_fetch_assoc($query2)) {
+															echo '<td>'.$nilai_var["nilai_variabel"].'</td>';
+														}
+													}
+													echo '
+															<td>
+																<a href="ubah_dmu.php?id='.$id_klinik.'" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-edit"></span></a>
+																<a href="process/hapus_dmu.php?id='.$id_klinik.'" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-remove"></span></a>
+											        		</td>
+														</tr>
+													';
+													$i++;
+												}
+											}										
+										?>
 									</tbody>
 								</table>
 								<a href="#" class="btn btn-info" type="button">Hitung Efisiensi</a>

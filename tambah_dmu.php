@@ -27,7 +27,7 @@
 								      	</div>
 								    </div>
 								    <?php
-										$query = mysqli_query($conn, "SELECT * FROM tb_variabel ORDER BY jenis_variabel, id_variabel ASC");
+										$query = mysqli_query($conn, "SELECT * FROM tb_variabel ORDER BY jenis_variabel ASC, id_variabel ASC");
 										if (mysqli_num_rows($query) > 0) {
 											while ($var = mysqli_fetch_assoc($query)) {
 												$name = str_replace(' ','_',$var['nama_variabel']);

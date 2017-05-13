@@ -35,7 +35,7 @@
 									<tbody>
 										<?php
 											$i=1;
-											$query = mysqli_query($conn, "SELECT * FROM tb_pengguna JOIN tb_klinik ON tb_pengguna.id_klinik = tb_klinik.id_klinik");
+											$query = mysqli_query($conn, "SELECT * FROM tb_pengguna AS p, tb_klinik AS k WHERE p.id_klinik = k.id_klinik");
 											if (mysqli_num_rows($query) > 0) {
 											    // output data of each row
 											    while($pengguna = mysqli_fetch_assoc($query)) {
