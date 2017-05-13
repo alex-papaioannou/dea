@@ -5,7 +5,7 @@
 							<h3 class="panel-title"><span class="glyphicon glyphicon-list-alt"></span> Mengelola Variabel</h3>
 						</div>
 						<div class="panel-body">			
-							<form class="form-horizontal" method="post" action="">
+							<form class="form-horizontal" method="post" action="process/t_variabel.php">
 								<fieldset>
 								    <legend>Tambah Variabel</legend>
 								    <div class="form-group">
@@ -17,10 +17,10 @@
 								    <div class="form-group">
 								      	<label class="col-sm-3 control-label">Jenis</label>
 								      	<div class="col-sm-6">
-								        	<select name="cabang_klinik" class="form-control" required>
+								        	<select name="jenis_variabel" class="form-control" required>
 								        		<option value="" selected="selected"> -- Pilih Jenis -- </option>
-								          		<option value="input">Input</option>
-								          		<option value="output">Output</option>
+								          		<option value="i">Input</option>
+								          		<option value="o">Output</option>
 								        	</select>
 								      	</div>
 								    </div>

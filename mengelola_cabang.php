@@ -42,8 +42,8 @@
 														<td>'.$i.'</td>
 														<td>'.$cabang['cabang_klinik'].'</td>
 														<td>
-															<a href="ubah_cabang.php?id='.$cabang['id_klinik'].'" class="btn btn-default btn-sm">Ubah</a>
-															<a href="process/hapus_cabang.php?id='.$cabang['id_klinik'].'" class="btn btn-primary btn-sm">Hapus</a>
+															<a href="ubah_cabang.php?id='.$cabang['id_klinik'].'" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-edit"></span></a>
+															<a href="process/hapus_cabang.php?id='.$cabang['id_klinik'].'" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-remove"></span></a>
 										        		</td>
 													</tr>
 												';
