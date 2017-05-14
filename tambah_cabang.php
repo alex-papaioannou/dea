@@ -16,7 +16,7 @@
 								    <div class="form-group">
 								      	<label class="col-sm-3 control-label">Lokasi Cabang Klinik</label>
 								      	<div class="col-sm-6">
-								        	<input class="form-control" name="cabang_klinik" placeholder="Lokasi Cabang Klinik. Contoh: Tembalang" type="text" maxlength="30" required>
+								        	<input class="form-control" name="cabang_klinik" placeholder="Panjang maksimal 50 karakter" type="text" maxlength="50" required>
 								      	</div>
 								    </div>
 								    <div class="form-group">

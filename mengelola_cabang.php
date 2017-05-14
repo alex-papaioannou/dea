@@ -10,17 +10,17 @@
 						  		<?php
 						  			if (ISSET($_GET['balasan']) AND ($_GET['balasan']==1)) {
 						  			  	echo '<div class="alert alert-dismissible alert-success"><button type="button" class="close" data-dismiss="alert">&times;</button><span class="glyphicon glyphicon-ok"></span> Data berhasil ditambahkan</div>';
-						  			  } elseif (ISSET($_GET['balasan']) AND ($_GET['balasan']==2)) {
-						  			  		echo '<div class="alert alert-dismissible alert-danger"><button type="button" class="close" data-dismiss="alert">&times;</button><span class="glyphicon glyphicon-remove"></span> Kesalahan telah terjadi</div>';
-						  			  } elseif (ISSET($_GET['balasan']) AND ($_GET['balasan']==3)) {
-						  			  		echo '<div class="alert alert-dismissible alert-success"><button type="button" class="close" data-dismiss="alert">&times;</button><span class="glyphicon glyphicon-ok"></span> Data berhasil dihapus</div>';
-						  			  } elseif (ISSET($_GET['balasan']) AND ($_GET['balasan']==4)) {
-						  			  		echo '<div class="alert alert-dismissible alert-danger"><button type="button" class="close" data-dismiss="alert">&times;</button><span class="glyphicon glyphicon-remove"></span> Gagal menghapus data</div>';
-						  			  } elseif (ISSET($_GET['balasan']) AND ($_GET['balasan']==5)) {
-						  			  		echo '<div class="alert alert-dismissible alert-success"><button type="button" class="close" data-dismiss="alert">&times;</button><span class="glyphicon glyphicon-ok"></span> Data berhasil diubah</div>';
-						  			  } elseif (ISSET($_GET['balasan']) AND ($_GET['balasan']==6)) {
-						  			  		echo '<div class="alert alert-dismissible alert-danger"><button type="button" class="close" data-dismiss="alert">&times;</button><span class="glyphicon glyphicon-remove"></span> Gagal mengubah data</div>';
-						  			  }
+						  			} elseif (ISSET($_GET['balasan']) AND ($_GET['balasan']==2)) {
+						  			  	echo '<div class="alert alert-dismissible alert-danger"><button type="button" class="close" data-dismiss="alert">&times;</button><span class="glyphicon glyphicon-remove"></span> Kesalahan telah terjadi</div>';
+						  			} elseif (ISSET($_GET['balasan']) AND ($_GET['balasan']==3)) {
+						  			  	echo '<div class="alert alert-dismissible alert-success"><button type="button" class="close" data-dismiss="alert">&times;</button><span class="glyphicon glyphicon-ok"></span> Data berhasil dihapus</div>';
+						  			} elseif (ISSET($_GET['balasan']) AND ($_GET['balasan']==4)) {
+						  			  	echo '<div class="alert alert-dismissible alert-danger"><button type="button" class="close" data-dismiss="alert">&times;</button><span class="glyphicon glyphicon-remove"></span> Gagal menghapus data</div>';
+						  			} elseif (ISSET($_GET['balasan']) AND ($_GET['balasan']==5)) {
+						  			  	echo '<div class="alert alert-dismissible alert-success"><button type="button" class="close" data-dismiss="alert">&times;</button><span class="glyphicon glyphicon-ok"></span> Data berhasil diubah</div>';
+						  			} elseif (ISSET($_GET['balasan']) AND ($_GET['balasan']==6)) {
+						  			  	echo '<div class="alert alert-dismissible alert-danger"><button type="button" class="close" data-dismiss="alert">&times;</button><span class="glyphicon glyphicon-remove"></span> Gagal mengubah data</div>';
+						  			}
 						  		?>
 						    	<table class="table table-bordered table-hover">
 									<thead>

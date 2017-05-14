@@ -5,13 +5,12 @@
 		// Login Berhasil
 		$username = test_input($_POST['username']);
 		$password = md5($_POST['password']);
-		$query = $conn->query("SELECT * FROM tb_pengguna WHERE username='".$username."' AND password='".$password."'");
-		$match = $query->num_rows;
-		if($match > 0){
+		$query = mysqli_query($conn, "SELECT * FROM tb_pengguna WHERE username='".$username."' AND password='".$password."'");
+		if(mysqli_num_rows($query) > 0){
 			// Username dan Password Benar
-			while($result = $query->fetch_object()){
-				$level = $result->level;
-				$id = $result->id_pengguna;
+			while($data = mysqli_fetch_assoc($query)){
+				$level = $data['level'];
+				$id = $data['id_pengguna'];
 			}
 			$_SESSION['username'] = $username;
 			$_SESSION['password'] = $password;

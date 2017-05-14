@@ -8,6 +8,11 @@
 							<form class="form-horizontal" method="post" action="process/t_dmu.php">
 								<fieldset>
 								    <legend>Tambah DMU</legend>
+								    <?php
+								    	if (ISSET($_GET['balasan']) AND ($_GET['balasan']==1)) {
+						  			  	echo '<div class="alert alert-dismissible alert-danger"><button type="button" class="close" data-dismiss="alert">&times;</button><span class="glyphicon glyphicon-remove"></span> <strong>DMU</strong> sudah terdaftar. Silahkan gunakan <strong>DMU</strong> lain</div>';
+						  			  	}
+								    ?>
 								    <div class="form-group">
 								      	<label class="col-sm-4 control-label">Nama</label>
 								      	<div class="col-sm-6">

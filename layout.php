@@ -6,6 +6,8 @@
 	} else {
 		// Berhasil Login
 		include "process/connect_db.php";
+		$id = $_SESSION["id"];
+		$level = $_SESSION["level"];
 	}
 ?>
 <!DOCTYPE html>
@@ -43,7 +45,7 @@
 				        		<li class="dropdown">
 				          			<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><?php echo $_SESSION['user']; ?> <span class="caret"></span></a>
 				          			<ul class="dropdown-menu" role="menu">
-				            			<li><a href="#"><span class="glyphicon glyphicon-user"></span> Profil</a></li>
+				            			<li><a href="ubah_pengguna.php?type=profile&id=<?php echo $id; ?>&lvl=<?php echo $level; ?>"><span class="glyphicon glyphicon-user"></span> Profil</a></li>
 				            			<li class="nav-divider"></li>
 				            			<li><a href="process/logout.php"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
 				          			</ul>

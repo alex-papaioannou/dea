@@ -8,10 +8,15 @@
 							<form class="form-horizontal" method="post" action="process/t_variabel.php">
 								<fieldset>
 								    <legend>Tambah Variabel</legend>
+								    <?php
+								    	if (ISSET($_GET['balasan']) AND ($_GET['balasan']==1)) {
+						  			  	echo '<div class="alert alert-dismissible alert-danger"><button type="button" class="close" data-dismiss="alert">&times;</button><span class="glyphicon glyphicon-remove"></span> <strong>Nama variabel</strong> sudah terdaftar. Silahkan gunakan <strong>nama variabel</strong> lain</div>';
+						  			  	}
+								    ?>
 								    <div class="form-group">
 								      	<label class="col-sm-3 control-label">Nama</label>
 								      	<div class="col-sm-6">
-								        	<input class="form-control" name="nama_variabel" placeholder="Diisikan menggunakan huruf" type="text" required>
+								        	<input class="form-control" name="nama_variabel" placeholder="Panjang maksimal 50 karakter" maxlength="50" type="text" required>
 								      	</div>
 								    </div>
 								    <div class="form-group">
@@ -27,7 +32,7 @@
 								    <div class="form-group">
 								      	<label class="col-sm-3 control-label">Satuan</label>
 								      	<div class="col-sm-6">
-								        	<input class="form-control" name="satuan_variabel" placeholder="Diisikan menggunakan huruf" type="text" required>
+								        	<input class="form-control" name="satuan_variabel" placeholder="Panjang maksimal 50 karakter" maxlength="50" type="text" required>
 								      	</div>
 								    </div>
 								    <div class="form-group">

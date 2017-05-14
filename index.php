@@ -31,7 +31,7 @@
 								echo '<div class="alert alert-dismissible alert-danger"><button type="button" class="close" data-dismiss="alert">&times;</button><span class="glyphicon glyphicon-remove"></span>  '.$_SESSION['error'].'</div>';
 							}
 						?>	
-														<h2 id="login-text"><strong>Klinikita</strong> Semarang</h2>
+							<h2 id="login-text"><strong>Klinikita</strong> Semarang</h2>
 					        <form role="form" action="process/login.php" method="post">
 					            <div class="form-group">
 						            <div class="input-group input-group-md">

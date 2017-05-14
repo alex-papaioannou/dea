@@ -16,19 +16,19 @@
 								    <div class="form-group">
 								      	<label class="col-sm-3 control-label">Nama</label>
 								      	<div class="col-sm-6">
-								        	<input class="form-control" name="nama_pengguna" placeholder="Diisikan menggunakan huruf" type="text" required>
+								        	<input class="form-control" name="nama_pengguna" placeholder="Panjang maksimal 50 karakter" type="text" maxlength="50" required>
 								      	</div>
 								    </div>
 								    <div class="form-group">
 								      	<label class="col-sm-3 control-label">Username</label>
 								      	<div class="col-sm-6">
-								        	<input class="form-control" name="username" placeholder="Diisikan menggunakan huruf" type="text" required>
+								        	<input class="form-control" name="username" placeholder="Panjang username 5-10 karakter" type="text" minlength="5" maxlength="10" required>
 								      	</div>
 								    </div>
 								    <div class="form-group">
 								      	<label class="col-sm-3 control-label">Password</label>
 								      	<div class="col-sm-6">
-								        	<input class="form-control" name="password" placeholder="Diisikan menggunakan huruf" type="password" required>
+								        	<input class="form-control" name="password" placeholder="Panjang password 5-12 karakter" type="password" minlength="5" maxlength="12" required>
 								      	</div>
 								    </div>
 								    <div class="form-group">
