@@ -8,6 +8,11 @@
 							<form class="form-horizontal" method="post" action="process/t_pengguna.php">
 								<fieldset>
 								    <legend>Tambah Pengguna</legend>
+								    <?php
+								    	if (ISSET($_GET['balasan']) AND ($_GET['balasan']==1)) {
+						  			  	echo '<div class="alert alert-dismissible alert-danger"><button type="button" class="close" data-dismiss="alert">&times;</button><span class="glyphicon glyphicon-remove"></span> <strong>Username</strong> sudah terdaftar. Silahkan gunakan <strong>username</strong> lain</div>';
+						  			  	}
+								    ?>
 								    <div class="form-group">
 								      	<label class="col-sm-3 control-label">Nama</label>
 								      	<div class="col-sm-6">
