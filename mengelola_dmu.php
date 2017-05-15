@@ -65,12 +65,37 @@
 															<td>'.$cabang["cabang_klinik"].'</td>
 													';
 													$id_klinik = $cabang['id_klinik'];
-													$query2 = mysqli_query($conn, 'SELECT d.nilai_variabel FROM tb_detail_dmu AS d, tb_variabel AS v WHERE d.id_variabel=v.id_variabel AND id_klinik='.$id_klinik.' ORDER BY v.jenis_variabel ASC, d.id_variabel');
-													if (mysqli_num_rows($query2)) {
-														while ($nilai_var = mysqli_fetch_assoc($query2)) {
+
+													// Variabel Input
+													$query_input = mysqli_query($conn, 'SELECT d.nilai_variabel FROM tb_detail_dmu AS d, tb_variabel AS v WHERE d.id_variabel=v.id_variabel AND id_klinik='.$id_klinik.' AND v.jenis_variabel="i" ORDER BY v.jenis_variabel ASC, d.id_variabel');
+													$count = 0;
+													if (mysqli_num_rows($query_input)) {
+														while ($nilai_var = mysqli_fetch_assoc($query_input)) {
 															echo '<td>'.$nilai_var["nilai_variabel"].'</td>';
+															$count++;
 														}
 													}
+													if ($count < $input) {
+														for ($k=$count; $k < $input; $k++) { 
+															echo '<td></td>';
+														}
+													}
+
+													// Variabel Output
+													$query_output = mysqli_query($conn, 'SELECT d.nilai_variabel FROM tb_detail_dmu AS d, tb_variabel AS v WHERE d.id_variabel=v.id_variabel AND id_klinik='.$id_klinik.' AND v.jenis_variabel="o" ORDER BY v.jenis_variabel ASC, d.id_variabel');
+													$count = 0;
+													if (mysqli_num_rows($query_output)) {
+														while ($nilai_var = mysqli_fetch_assoc($query_output)) {
+															echo '<td>'.$nilai_var["nilai_variabel"].'</td>';
+															$count++;
+														}
+													}
+													if ($count < $output) {
+														for ($j=$count; $j < $output; $j++) { 
+															echo '<td></td>';
+														}
+													}
+
 													echo '
 															<td>
 																<a href="ubah_dmu.php?id='.$id_klinik.'" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-edit"></span></a>
