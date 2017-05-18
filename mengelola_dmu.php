@@ -11,15 +11,15 @@
 						  			if (ISSET($_GET['balasan']) AND ($_GET['balasan']==1)) {
 						  			  	echo '<div class="alert alert-dismissible alert-success"><button type="button" class="close" data-dismiss="alert">&times;</button><span class="glyphicon glyphicon-ok"></span> Data berhasil ditambahkan</div>';
 						  			} elseif (ISSET($_GET['balasan']) AND ($_GET['balasan']==2)) {
-						  			  	echo '<div class="alert alert-dismissible alert-danger"><button type="button" class="close" data-dismiss="alert">&times;</button><span class="glyphicon glyphicon-remove"></span> Kesalahan telah terjadi</div>';
+						  			  	echo '<div class="alert alert-dismissible alert-danger"><button type="button" class="close" data-dismiss="alert">&times;</button><span class="glyphicon glyphicon-exclamation-sign"></span> Kesalahan telah terjadi</div>';
 						  			} elseif (ISSET($_GET['balasan']) AND ($_GET['balasan']==3)) {
 						  			  	echo '<div class="alert alert-dismissible alert-success"><button type="button" class="close" data-dismiss="alert">&times;</button><span class="glyphicon glyphicon-ok"></span> Data berhasil dihapus</div>';
 						  			} elseif (ISSET($_GET['balasan']) AND ($_GET['balasan']==4)) {
-						  			  	echo '<div class="alert alert-dismissible alert-danger"><button type="button" class="close" data-dismiss="alert">&times;</button><span class="glyphicon glyphicon-remove"></span> Gagal menghapus data</div>';
+						  			  	echo '<div class="alert alert-dismissible alert-danger"><button type="button" class="close" data-dismiss="alert">&times;</button><span class="glyphicon glyphicon-exclamation-sign"></span> Gagal menghapus data</div>';
 						  			} elseif (ISSET($_GET['balasan']) AND ($_GET['balasan']==5)) {
 						  			  	echo '<div class="alert alert-dismissible alert-success"><button type="button" class="close" data-dismiss="alert">&times;</button><span class="glyphicon glyphicon-ok"></span> Data berhasil diubah</div>';
 						  			} elseif (ISSET($_GET['balasan']) AND ($_GET['balasan']==6)) {
-						  			  	echo '<div class="alert alert-dismissible alert-danger"><button type="button" class="close" data-dismiss="alert">&times;</button><span class="glyphicon glyphicon-remove"></span> Gagal mengubah data</div>';
+						  			  	echo '<div class="alert alert-dismissible alert-danger"><button type="button" class="close" data-dismiss="alert">&times;</button><span class="glyphicon glyphicon-exclamation-sign"></span> Gagal mengubah data</div>';
 						  			}
 						  			
 						  			// Menghitung jumlah var input dan output
@@ -56,7 +56,7 @@
 									<tbody>
 										<?php
 											$i = 1;
-											$query = mysqli_query($conn, "SELECT k.cabang_klinik, d.id_klinik FROM tb_klinik AS k, tb_detail_dmu AS d WHERE k.id_klinik=d.id_klinik GROUP BY id_klinik");
+											$query = mysqli_query($conn, "SELECT k.cabang_klinik, d.id_klinik FROM tb_klinik AS k, tb_detail_dmu AS d WHERE k.id_klinik=d.id_klinik GROUP BY id_klinik ORDER BY id_detail");
 											if (mysqli_num_rows($query)) {
 												while ($cabang = mysqli_fetch_assoc($query)) {
 													echo '
@@ -99,7 +99,7 @@
 													echo '
 															<td>
 																<a href="ubah_dmu.php?id='.$id_klinik.'" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-edit"></span></a>
-																<a href="process/hapus_dmu.php?id='.$id_klinik.'" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-remove"></span></a>
+																<a href="process/hapus_dmu.php?id='.$id_klinik.'" onclick="hapus()" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-remove"></span></a>
 											        		</td>
 														</tr>
 													';
@@ -109,7 +109,11 @@
 										?>
 									</tbody>
 								</table>
-								<a href="#" class="btn btn-info" type="button">Hitung Efisiensi</a>
+								<?php
+									$q = mysqli_query($conn, "SELECT * FROM tb_detail_dmu ORDER BY id_klinik ASC LIMIT 0,1");
+									$d = mysqli_fetch_assoc($q);
+								?>
+								<a href="<?php echo 'process/simplex/simplex.php?dmu='.$d["id_klinik"].'&loop=0'; ?>" class="btn btn-info" type="button">Hitung Efisiensi</a>
 						  	</div>
 					  	</div>
 					</div>

@@ -34,11 +34,20 @@
 								      	</div>
 								    </div>
 								    <?php
+								    	$input = 0;
+								    	$output = 0;
 										$query = mysqli_query($conn, 'SELECT * FROM tb_variabel v, tb_detail_dmu d WHERE v.id_variabel=d.id_variabel AND d.id_klinik='.$id.' ORDER BY v.jenis_variabel ASC, v.id_variabel ASC');
 										while($var = mysqli_fetch_assoc($query)){
 											$name =	 str_replace(' ','_',$var['nama_variabel']);
 											$satuan = $var['satuan'];
 											$value = $var["nilai_variabel"];
+											if (($var['jenis_variabel'] == 'i') AND ($input == 0)) {
+												echo '<div class="form-group"><legend class="col-sm-8 col-sm-offset-2">Variabel Input</legend></div>';
+													$input = 1;
+											} elseif (($var['jenis_variabel'] == 'o') AND ($output == 0)) {
+												echo '<div class="form-group"><legend class="col-sm-8 col-sm-offset-2">Variabel Output</legend></div>';
+													$output = 1;
+											}
 											echo '
 												<div class="form-group">
 												    <label class="col-sm-4 control-label">'.$var["nama_variabel"].'</label>

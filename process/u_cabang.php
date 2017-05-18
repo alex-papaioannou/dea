@@ -1,8 +1,8 @@
 <?php
 	include 'connect_db.php';
-	if ((ISSET($_GET['id'])) AND ($_POST['cabang_klinik'])) {
+	if ((ISSET($_GET['id'])) AND (ISSET($_POST['cabang_klinik']))) {
 		$id = $_GET['id'];
-		$cabang = $_POST['cabang_klinik'];
+		$cabang = trim($_POST['cabang_klinik']);
 
 		// Mengecek apakah data sudah pernah terdaftar
 		$query = 'SELECT COUNT(cabang_klinik) AS total FROM tb_klinik WHERE LOWER(cabang_klinik)=LOWER("'.$cabang.'")';

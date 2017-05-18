@@ -3,9 +3,9 @@
 	include 'connect_db.php';
 	// Memastikan Data Terkirim Melalui Form
 	if (ISSET($_POST["nama_variabel"])) {
-		$nama = $_POST["nama_variabel"];
-		$jenis = $_POST["jenis_variabel"];
-		$satuan = $_POST["satuan_variabel"];
+		$nama = trim($_POST["nama_variabel"]);
+		$jenis = trim($_POST["jenis_variabel"]);
+		$satuan = trim($_POST["satuan_variabel"]);
 		
 		// Mengecek apakah data sudah pernah terdaftar
 		$query = 'SELECT COUNT(nama_variabel) AS total FROM tb_variabel WHERE LOWER(nama_variabel)=LOWER("'.$nama.'")';

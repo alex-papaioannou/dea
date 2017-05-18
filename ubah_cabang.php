@@ -20,7 +20,7 @@
 								    <legend>Ubah Cabang</legend>
 								    <?php
 								    	if (ISSET($_GET['balasan']) AND ($_GET['balasan']==1)) {
-						  			  	echo '<div class="alert alert-dismissible alert-danger"><button type="button" class="close" data-dismiss="alert">&times;</button><span class="glyphicon glyphicon-remove"></span> <strong>Cabang</strong> sudah terdaftar. Silahkan gunakan <strong>cabang</strong> lain</div>';
+						  			  	echo '<div class="alert alert-dismissible alert-danger"><button type="button" class="close" data-dismiss="alert">&times;</button><span class="glyphicon glyphicon-exclamation-sign"></span> <strong>Cabang</strong> sudah terdaftar. Silahkan gunakan <strong>cabang</strong> lain</div>';
 						  			  	}
 								    ?>
 								    <div class="form-group">

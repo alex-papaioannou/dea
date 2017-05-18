@@ -3,9 +3,9 @@
 	include 'connect_db.php';
 	// Memastikan Data Terkirim Melalui Form
 	if (ISSET($_POST["nama_pengguna"])) {
-		$nama = $_POST["nama_pengguna"];
-		$username = $_POST["username"];
-		$password = md5($_POST["password"]);
+		$nama = trim($_POST["nama_pengguna"]);
+		$username = str_replace(" ","",$_POST["username"]);
+		$password = md5(trim($_POST["password"]));
 		$cabang = $_POST["cabang_klinik"];
 		// Mengecek apakah data sudah pernah terdaftar
 		$query = 'SELECT COUNT(username) AS total FROM tb_pengguna WHERE LOWER(username)=LOWER("'.$username.'")';

@@ -3,7 +3,7 @@
 	include 'connect_db.php';
 	// Memastikan Data Terkirim Melalui Form
 	if (ISSET($_POST["cabang_klinik"])) {
-		$cabang = $_POST["cabang_klinik"];
+		$cabang = trim($_POST["cabang_klinik"]);
 		// Mengecek apakah data sudah pernah terdaftar
 		$query = 'SELECT COUNT(cabang_klinik) AS total FROM tb_klinik WHERE LOWER(cabang_klinik)=LOWER("'.$cabang.'")';
 		if (mysqli_query($conn, $query)) {

@@ -4,9 +4,9 @@
 		$id = $_GET['id'];
 		$lvl = $_GET['lvl'];
 		$type = $_GET['type'];
-		$nama = $_POST['nama_pengguna'];
-		$username = $_POST['username'];
-		$password = md5($_POST['password']);
+		$nama = trim($_POST['nama_pengguna']);
+		$username = str_replace(" ","",$_POST["username"]);
+		$password = md5(trim($_POST['password']));
 		if ($lvl == 'a') {
 			$id_klinik = 0;
 		} else {
@@ -58,7 +58,7 @@
 					if ($type == 'profile') {
 						header('Location: ../ubah_pengguna.php?type=profile&id='.$id.'&lvl='.$lvl.'&balasan=1');
 					} elseif ($type == 'ubah') {
-						header('Location: ../ubah_pengguna.php?id='.$id.'&balasan=1');
+						header('Location: ../ubah_pengguna.php?id='.$id.'&balasan=1&type='.$type.'');
 					}
 				}
 			} elseif ($data['total'] == 0) { // Jika == 0 artinya belum pernah terdaftar

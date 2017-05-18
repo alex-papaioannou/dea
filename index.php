@@ -28,7 +28,7 @@
 						<?php 
 							if (ISSET($_SESSION['error'])) {
 								// Terdapat Error Saat Login
-								echo '<div class="alert alert-dismissible alert-danger"><button type="button" class="close" data-dismiss="alert">&times;</button><span class="glyphicon glyphicon-remove"></span>  '.$_SESSION['error'].'</div>';
+								echo '<div class="alert alert-dismissible alert-danger"><button type="button" class="close" data-dismiss="alert">&times;</button><span class="glyphicon glyphicon-exclamation-sign"></span>  '.$_SESSION['error'].'</div>';
 							}
 						?>	
 							<h2 id="login-text"><strong>Klinikita</strong> Semarang</h2>
