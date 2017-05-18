@@ -54,7 +54,7 @@
 						$id_var_baru = $var4['id_variabel'];
 					
 						// Menghitung ada tidaknya data pada tb detail dmu
-						$q3 = mysqli_query($conn, 'SELECT * FROM `tb_detail_dmu` GROUP BY id_klinik');
+						$q3 = mysqli_query($conn, 'SELECT * FROM tb_detail_dmu GROUP BY id_klinik');
 						if (mysqli_num_rows($q3) > 0) {
 							while($var3 = mysqli_fetch_assoc($q3)) {
 								$id_klinik = $var3['id_klinik'];
