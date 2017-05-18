@@ -48,7 +48,7 @@
 															<td>'.$pengguna['cabang_klinik'].'</td>
 															<td>
 																<a href="ubah_pengguna.php?type=ubah&id='.$pengguna['id_pengguna'].'" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-edit"></span></a>
-																<a href="process/hapus_pengguna.php?id='.$pengguna['id_pengguna'].'" onclick="hapus()" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-remove"></span></a>
+																<a href="process/hapus_pengguna.php?id='.$pengguna['id_pengguna'].'" onclick="return hapus()" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-remove"></span></a>
 											        		</td>
 														</tr>
 													';

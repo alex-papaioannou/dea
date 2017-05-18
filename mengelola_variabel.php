@@ -54,7 +54,7 @@
 															<td>'.$var['satuan'].'</td>
 															<td>
 																<a href="ubah_variabel.php?id='.$var['id_variabel'].'" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-edit"></span></a>
-																<a href="process/hapus_variabel.php?id='.$var['id_variabel'].'" onclick="hapus()" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-remove"></span></a>
+																<a href="process/hapus_variabel.php?id='.$var['id_variabel'].'" onclick="return hapus()" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-remove"></span></a>
 											        		</td>
 														</tr>
 													';

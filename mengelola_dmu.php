@@ -99,7 +99,7 @@
 													echo '
 															<td>
 																<a href="ubah_dmu.php?id='.$id_klinik.'" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-edit"></span></a>
-																<a href="process/hapus_dmu.php?id='.$id_klinik.'" onclick="hapus()" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-remove"></span></a>
+																<a href="process/hapus_dmu.php?id='.$id_klinik.'" onclick="return hapus()" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-remove"></span></a>
 											        		</td>
 														</tr>
 													';
