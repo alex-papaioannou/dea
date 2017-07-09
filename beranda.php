@@ -12,14 +12,13 @@
 						<div class="panel-body">
 							<?php 
 								if ($level == 'a') {
-									echo '<h1 align="center">Sistem Pengukuran Efisiensi Klinik</h1>';
+									echo '<h1 align="center">Sistem Pengukuran Efisiensi Klinik</h1><hr />';
 									echo '
-										<br>
 										<h4 id="deskripsi">Sistem Pengukuran Efisiensi Klinik merupakan sebuah sistem yang berfungsi untuk menghitung efisiensi kinerja masing-masing cabang klinik. <em>Output</em> dari sistem ini berupa nilai efisiensi serta rekomendasi untuk dapat meningkatkan efisiensi cabang yang dinilai belum efisien. Cabang klinik yang dinilai sudah efisien akan dijadikan sebagai <em>benchmarking</em> bagi cabang klinik lain yang belum efisien melalui rekomendasi yang dihasilkan. Sistem ini dibuat guna membantu manajer dalam mengambil keputusan sebagai upaya dalam meningkatkan mutu dan kualitas pelayanan Klinikita Semarang.</h4>
 										<br>
 									';
 								} else {
-									echo '<h1 align="center">Hasil Perhitungan Efisiensi dan Rekomendasi</h1>';
+									echo '<h1 align="center">Hasil Perhitungan Efisiensi dan Rekomendasi</h1><hr />';
 								}
 							?>
 							

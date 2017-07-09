@@ -21,49 +21,59 @@
 						  			} elseif (ISSET($_GET['balasan']) AND ($_GET['balasan']==6)) {
 						  			  	echo '<div class="alert alert-dismissible alert-danger"><button type="button" class="close" data-dismiss="alert">&times;</button><span class="glyphicon glyphicon-exclamation-sign"></span> Gagal mengubah data</div>';
 						  			}
-						  		?>
-						    	<table class="table table-bordered table-hover">
-									<thead>
-										<tr>
-											<th>No</th>
-											<th>Nama</th>
-											<th>Jenis</th>
-											<th>Satuan</th>
-											<th>Aksi</th>
-										</tr>
-									</thead>
-									<tbody>
-										<?php
-											$i=1;
-											$query = mysqli_query($conn, "SELECT * FROM tb_variabel");
-											if (mysqli_num_rows($query) > 0) {
-											    // output data of each row
-											    while($var = mysqli_fetch_assoc($query)) {
-											    	// Query untuk mengkonversi id_klinik menjadi nama cabangnya
-											    	if ($var['jenis_variabel'] == 'i') {
-											    		$var['jenis_variabel'] = 'Input';
-											    	} elseif ($var['jenis_variabel'] == 'o') {
-											    		$var['jenis_variabel'] = 'Output';
-											    	}
 
-											        echo '
-														<tr>
-															<td>'.$i.'</td>
-															<td>'.$var['nama_variabel'].'</td>
-															<td>'.$var['jenis_variabel'].'</td>
-															<td>'.$var['satuan'].'</td>
-															<td>
-																<a href="ubah_variabel.php?id='.$var['id_variabel'].'" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-edit"></span></a>
-																<a href="process/hapus_variabel.php?id='.$var['id_variabel'].'" onclick="return hapus()" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-remove"></span></a>
-											        		</td>
-														</tr>
-													';
-													$i++;
-											    }
-											} 
-										?>
-									</tbody>
-								</table>
+									# Menampilkan Data Tabel
+									$i=1;
+									$query = mysqli_query($conn, "SELECT * FROM tb_variabel");
+									if (mysqli_num_rows($query) > 0) {
+										echo '
+											<table class="table table-bordered table-hover">
+												<thead>
+													<tr>
+														<th>No</th>
+														<th>Nama</th>
+														<th>Jenis</th>
+														<th>Satuan</th>
+														<th>Aksi</th>
+													</tr>
+												</thead>
+												<tbody>
+										';
+										while($var = mysqli_fetch_assoc($query)) {
+										// Query untuk mengkonversi id_klinik menjadi nama cabangnya
+											if ($var['jenis_variabel'] == 'i') {
+											    $var['jenis_variabel'] = 'Input';
+											} elseif ($var['jenis_variabel'] == 'o') {
+											    $var['jenis_variabel'] = 'Output';
+											}
+
+											echo '
+												<tr>
+													<td>'.$i.'</td>
+													<td>'.$var['nama_variabel'].'</td>
+													<td>'.$var['jenis_variabel'].'</td>
+													<td>'.$var['satuan'].'</td>
+													<td>
+														<a href="ubah_variabel.php?id='.$var['id_variabel'].'" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-edit"></span></a>
+														<a href="process/hapus_variabel.php?id='.$var['id_variabel'].'" onclick="return hapus()" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-remove"></span></a>
+											        </td>
+												</tr>
+											';
+											$i++;
+										}
+										echo '
+												</tbody>
+											</table>
+										';
+									} else {
+										echo '
+											<div class="alert alert-dismissible alert-warning">
+		  										<button type="button" class="close" data-dismiss="alert">&times;</button>
+		  										<Strong>Data Masing Kosong</strong>. Silahkan Tambah Data Variabel.
+											</div>
+										';
+									}
+								?>
 						  	</div>
 					  	</div>
 					</div>

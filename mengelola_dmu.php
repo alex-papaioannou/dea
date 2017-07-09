@@ -39,77 +39,88 @@
 											$list_var .= "<th>$nama</th>";
 										}
 									}
-						  		?>
-						    	<table class="table table-bordered table-hover">
-									<thead>
-										<tr>
-											<th rowspan="2">No</th>
-											<th rowspan="2">DMU</th>
-											<th colspan="<?php echo $input; ?>">Input</th>
-											<th colspan="<?php echo $output; ?>">Output</th>
-											<th rowspan="2">Aksi</th>
-										</tr>
-										<tr>
-											<?php echo $list_var; ?>
-										</tr>
-									</thead>
-									<tbody>
-										<?php
-											$i = 1;
-											$query = mysqli_query($conn, 'SELECT k.cabang_klinik, d.id_klinik FROM tb_klinik AS k, tb_detail_dmu AS d WHERE k.id_klinik=d.id_klinik AND d.id_klinik="'.$_SESSION['id_klinik'].'" GROUP BY id_klinik ORDER BY id_detail_dmu');
-											if (mysqli_num_rows($query)) {
-												while ($cabang = mysqli_fetch_assoc($query)) {
-													echo '
-														<tr>
-															<td>'.$i.'</td>
-															<td>'.$cabang["cabang_klinik"].'</td>
-													';
-													$id_klinik = $cabang['id_klinik'];
 
-													// Variabel Input
-													$query_input = mysqli_query($conn, 'SELECT d.nilai_variabel FROM tb_detail_dmu AS d, tb_variabel AS v WHERE d.id_variabel=v.id_variabel AND id_klinik='.$id_klinik.' AND v.jenis_variabel="i" ORDER BY v.jenis_variabel ASC, d.id_variabel');
-													$count = 0;
-													if (mysqli_num_rows($query_input)) {
-														while ($nilai_var = mysqli_fetch_assoc($query_input)) {
-															echo '<td>'.$nilai_var["nilai_variabel"].'</td>';
-															$count++;
-														}
-													}
-													if ($count < $input) {
-														for ($k=$count; $k < $input; $k++) { 
-															echo '<td></td>';
-														}
-													}
+									# Menampilkan Data Tabel
+									$i = 1;
+									$query = mysqli_query($conn, 'SELECT k.cabang_klinik, d.id_klinik FROM tb_klinik AS k, tb_detail_dmu AS d WHERE k.id_klinik=d.id_klinik AND d.id_klinik="'.$_SESSION['id_klinik'].'" GROUP BY id_klinik ORDER BY id_detail_dmu');
+									if (mysqli_num_rows($query) > 0) {
+										echo '
+											<table class="table table-bordered table-hover">
+												<thead>
+													<tr>
+														<th rowspan="2">No</th>
+														<th rowspan="2">DMU</th>
+														<th colspan="'.$input.'">Input</th>
+														<th colspan="'.$output.'">Output</th>
+														<th rowspan="2">Aksi</th>
+													</tr>
+													<tr>
+														'.$list_var.'
+													</tr>
+												</thead>
+												<tbody>
+										';
+										while ($cabang = mysqli_fetch_assoc($query)) {
+											echo '
+												<tr>
+													<td>'.$i.'</td>
+													<td>'.$cabang["cabang_klinik"].'</td>
+											';
+											$id_klinik = $cabang['id_klinik'];
 
-													// Variabel Output
-													$query_output = mysqli_query($conn, 'SELECT d.nilai_variabel FROM tb_detail_dmu AS d, tb_variabel AS v WHERE d.id_variabel=v.id_variabel AND id_klinik='.$id_klinik.' AND v.jenis_variabel="o" ORDER BY v.jenis_variabel ASC, d.id_variabel');
-													$count = 0;
-													if (mysqli_num_rows($query_output)) {
-														while ($nilai_var = mysqli_fetch_assoc($query_output)) {
-															echo '<td>'.$nilai_var["nilai_variabel"].'</td>';
-															$count++;
-														}
-													}
-													if ($count < $output) {
-														for ($j=$count; $j < $output; $j++) { 
-															echo '<td></td>';
-														}
-													}
-
-													echo '
-															<td>
-																<a href="ubah_dmu.php?id='.$id_klinik.'" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-edit"></span></a>
-																<a href="process/hapus_dmu.php?id='.$id_klinik.'" onclick="return hapus()" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-remove"></span></a>
-											        		</td>
-														</tr>
-													';
-													$i++;
+											// Variabel Input
+											$query_input = mysqli_query($conn, 'SELECT d.nilai_variabel FROM tb_detail_dmu AS d, tb_variabel AS v WHERE d.id_variabel=v.id_variabel AND id_klinik='.$id_klinik.' AND v.jenis_variabel="i" ORDER BY v.jenis_variabel ASC, d.id_variabel');
+											$count = 0;
+											if (mysqli_num_rows($query_input)) {
+												while ($nilai_var = mysqli_fetch_assoc($query_input)) {
+													echo '<td>'.$nilai_var["nilai_variabel"].'</td>';
+													$count++;
 												}
-											}										
-										?>
-									</tbody>
-								</table>
-								<a href="<?php echo 'process/simplex.php'; ?>" class="btn btn-info" type="button">Hitung Efisiensi</a>
+											}
+											if ($count < $input) {
+												for ($k=$count; $k < $input; $k++) { 
+													echo '<td></td>';
+												}
+											}
+
+											// Variabel Output
+											$query_output = mysqli_query($conn, 'SELECT d.nilai_variabel FROM tb_detail_dmu AS d, tb_variabel AS v WHERE d.id_variabel=v.id_variabel AND id_klinik='.$id_klinik.' AND v.jenis_variabel="o" ORDER BY v.jenis_variabel ASC, d.id_variabel');
+											$count = 0;
+											if (mysqli_num_rows($query_output)) {
+												while ($nilai_var = mysqli_fetch_assoc($query_output)) {
+													echo '<td>'.$nilai_var["nilai_variabel"].'</td>';
+													$count++;
+												}
+											}
+											if ($count < $output) {
+												for ($j=$count; $j < $output; $j++) { 
+													echo '<td></td>';
+												}
+											}
+
+											echo '
+													<td>
+														<a href="ubah_dmu.php?id='.$id_klinik.'" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-edit"></span></a>
+														<a href="process/hapus_dmu.php?id='.$id_klinik.'" onclick="return hapus()" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-remove"></span></a>
+											        </td>
+												</tr>
+											';
+											$i++;
+										}
+										echo '
+												</tbody>
+											</table>
+											<a href="process/simplex.php" class="btn btn-info" type="button">Hitung Efisiensi</a>
+										';
+									} else {
+										echo '
+											<div class="alert alert-dismissible alert-warning">
+		  										<button type="button" class="close" data-dismiss="alert">&times;</button>
+		  										<Strong>Data Masing Kosong</strong>. Silahkan Tambah Data DMU.
+											</div>
+										';
+									}									
+								?>
 						  	</div>
 					  	</div>
 					</div>

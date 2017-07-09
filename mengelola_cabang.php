@@ -5,7 +5,7 @@
 					    	<h3 class="panel-title"><span class="glyphicon glyphicon-duplicate"></span> Mengelola Cabang</h3>
 					  	</div>
 					  	<div class="panel-body">
-						  	<div class="col-sm-8 col-sm-offset-1">
+						  	<div class="col-sm-11 col-sm-offset-1">
 						  		<legend>Daftar Cabang</legend>
 						  		<?php
 						  			if (ISSET($_GET['balasan']) AND ($_GET['balasan']==1)) {
@@ -21,40 +21,48 @@
 						  			} elseif (ISSET($_GET['balasan']) AND ($_GET['balasan']==6)) {
 						  			  	echo '<div class="alert alert-dismissible alert-danger"><button type="button" class="close" data-dismiss="alert">&times;</button><span class="glyphicon glyphicon-exclamation-sign"></span> Gagal mengubah data</div>';
 						  			}
-						  		?>
-						    	<table class="table table-bordered table-hover">
-									<thead>
-										<tr>
-											<th>No</th>
-											<th>Cabang Klinik</th>
-											<th>Alamat</th>
-											<th>Aksi</th>
-										</tr>
-									</thead>
-									<tbody>
-									<?php
-										$i=1;
-										$query = mysqli_query($conn, "SELECT * FROM tb_klinik");
-										if (mysqli_num_rows($query) > 0) {
-										    // output data of each row
-										    while($cabang = mysqli_fetch_assoc($query)) {
-										        echo '
-													<tr>
-														<td>'.$i.'</td>
-														<td>'.$cabang['cabang_klinik'].'</td>
-														<td>'.$cabang['alamat'].'</td>
-														<td>
-															<a href="ubah_cabang.php?id='.$cabang['id_klinik'].'" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-edit"></span></a>
-															<a href="process/hapus_cabang.php?id='.$cabang['id_klinik'].'" onclick="return hapus()" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-remove"></span></a>
-										        		</td>
-													</tr>
+
+						  			# Menampilkan Data Tabel
+									$i=1;
+									$query = mysqli_query($conn, "SELECT * FROM tb_klinik");
+									if (mysqli_num_rows($query) > 0) {
+										echo '
+										        <table class="table table-bordered table-hover">
+													<thead>
+														<tr>
+															<th>No</th>
+															<th>Cabang Klinik</th>
+															<th>Alamat</th>
+															<th>Aksi</th>
+														</tr>
+													</thead>
+													<tbody>';
+										while($cabang = mysqli_fetch_assoc($query)) {
+											echo '		<tr>
+															<td>'.$i.'</td>
+															<td>'.$cabang['cabang_klinik'].'</td>
+															<td>'.$cabang['alamat'].'</td>
+															<td>
+																<a href="ubah_cabang.php?id='.$cabang['id_klinik'].'" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-edit"></span></a>
+																<a href="process/hapus_cabang.php?id='.$cabang['id_klinik'].'" onclick="return hapus()" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-remove"></span></a>
+											        		</td>
+														</tr>
 												';
 												$i++;
-										    }
-										} 
-									?>
-									</tbody>
-								</table>
+										}
+										echo '
+													</tbody>
+												</table>
+										';
+									} else {
+										echo '
+										  	<div class="alert alert-dismissible alert-warning">
+  												<button type="button" class="close" data-dismiss="alert">&times;</button>
+  												<Strong>Data Masing Kosong</strong>. Silahkan Tambah Data Cabang.
+											</div>
+										';
+									}
+								?>
 						  	</div>
 					  	</div>
 					</div>

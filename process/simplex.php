@@ -2,6 +2,9 @@
 	session_start();
 	include "connect_db.php";
 	
+	# Menghapus Semua Data Pada DB Tabel Perhitungan Efisiensi
+	$q = mysqli_query($conn, 'DELETE FROM tb_perhitungan_efisiensi');
+	
 	// Mendapatkan semua id klinik
 	$index_dmu = 0;
 	$q = mysqli_query($conn, 'SELECT id_klinik FROM tb_detail_dmu GROUP BY id_klinik');
@@ -169,7 +172,7 @@
 				$id_var=$d4['id_variabel'];
 				if ($n_var <= $n_var_input) {
 					// Fungsi Z (Var Input)
-					$q5=mysqli_query($conn, 'SELECT d.nilai_variabel FROM tb_detail_dmu AS d, tb_variabel AS v WHERE d.id_variabel=v.id_variabel AND d.id_variabel="'.$id_var.'" AND v.jenis_variabel="i"');
+					$q5=mysqli_query($conn, 'SELECT d.nilai_variabel FROM tb_detail_dmu AS d, tb_variabel AS v WHERE d.id_variabel=v.id_variabel AND d.id_variabel="'.$id_var.'" AND v.jenis_variabel="i" ORDER BY d.id_variabel');
 					if (mysqli_num_rows($q5) > 0) {
 						while ($d5=mysqli_fetch_assoc($q5)) {
 							if ($b > $n_dmu) {
@@ -182,7 +185,7 @@
 					}
 				} else {
 					// Fungsi Kendala (Var Output)
-					$q6=mysqli_query($conn, 'SELECT d.nilai_variabel FROM tb_detail_dmu AS d, tb_variabel AS v WHERE d.id_variabel=v.id_variabel AND d.id_variabel="'.$id_var.'" AND v.jenis_variabel="o"');
+					$q6=mysqli_query($conn, 'SELECT d.nilai_variabel FROM tb_detail_dmu AS d, tb_variabel AS v WHERE d.id_variabel=v.id_variabel AND d.id_variabel="'.$id_var.'" AND v.jenis_variabel="o" ORDER BY d.id_variabel');
 					if (mysqli_num_rows($q6) > 0) {
 						while ($d6=mysqli_fetch_assoc($q6)) {
 							if ($d > $n_dmu) {

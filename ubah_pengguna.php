@@ -8,7 +8,7 @@
 	} 
 	if (ISSET($_GET['lvl'])) {
 		$lvl = $_GET['lvl'];
-		if (($lvl == 'a') OR ($lvl == 'p')) {
+		if (($lvl == 'a') OR ($lvl == 'p')) { # Jika ingin mengubah profil
 			$query = mysqli_query($conn, 'SELECT * FROM tb_pengguna WHERE id_pengguna="'.$id.'"');
 			if (mysqli_num_rows($query) > 0) {
 				while ($data = mysqli_fetch_assoc($query)) {
@@ -27,7 +27,17 @@
 				$lvl = $pengguna['level'];
 			}
 		}
-	} 
+	} else { # Jika yang login Superadmin -> mengelola Admin Cabang atau Admin Cabang -> mengelola Manajer Cabang
+		$query = mysqli_query($conn, 'SELECT * FROM tb_pengguna AS p, tb_klinik AS k WHERE p.id_klinik = k.id_klinik AND p.id_pengguna="'.$id.'"');
+		if (mysqli_num_rows($query) > 0) {
+			$pengguna = mysqli_fetch_assoc($query);
+			$nama = $pengguna['nama'];
+			$username = $pengguna['username'];
+			$id_klinik = $pengguna['id_klinik'];
+			$cabang_klinik = $pengguna['cabang_klinik'];
+			$lvl = $pengguna['level'];
+		}
+	}
 ?>
 				<div class="col-sm-9">
 					<div class="panel panel-primary">
