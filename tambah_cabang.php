@@ -10,13 +10,19 @@
 								    <legend>Tambah Cabang</legend>
 								    <?php
 								    	if (ISSET($_GET['balasan']) AND ($_GET['balasan']==1)) {
-						  			  	echo '<div class="alert alert-dismissible alert-danger"><button type="button" class="close" data-dismiss="alert">&times;</button><span class="glyphicon glyphicon-exclamation-sign"></span> <strong>Cabang</strong> sudah terdaftar. Silahkan gunakan <strong>cabang</strong> lain</div>';
+						  			  	echo '<div class="alert alert-dismissible alert-danger"><button type="button" class="close" data-dismiss="alert">&times;</button><span class="glyphicon glyphicon-exclamation-sign"></span> <strong>Cabang</strong> atau <strong>alamat</strong> sudah terdaftar. Silahkan gunakan <strong>cabang</strong> atau <strong>alamat</strong> lain</div>';
 						  			  	}
 								    ?>
 								    <div class="form-group">
-								      	<label class="col-sm-3 control-label">Lokasi Cabang Klinik</label>
+								      	<label class="col-sm-3 control-label">Cabang Klinik</label>
 								      	<div class="col-sm-6">
 								        	<input class="form-control" name="cabang_klinik" placeholder="Panjang maksimal 50 karakter" type="text" maxlength="50" required>
+								      	</div>
+								    </div>
+								    <div class="form-group">
+								      	<label class="col-sm-3 control-label">Alamat</label>
+								      	<div class="col-sm-6">
+								      		<textarea class="form-control" rows="3" name="alamat" placeholder="Panjang maksimal 100 karakter" type="text" maxlength="100" required></textarea>
 								      	</div>
 								    </div>
 								    <div class="form-group">

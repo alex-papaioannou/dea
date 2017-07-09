@@ -66,35 +66,52 @@
 								<li>
 									<a href="beranda.php"><span class="glyphicon glyphicon-home"></span> Beranda</a>
 								</li>
-					            <li>
-					            	<a data-toggle="collapse" data-parent="#stacked-menu" href="#p1"><span class="glyphicon glyphicon-duplicate"></span> Mengelola Cabang <span class="caret arrow"></span></a>
-					            	<ul class="nav nav-pills nav-stacked collapse" id="p1">
-				            			<li><a href="tambah_cabang.php">Tambah Cabang</a></li>
-							            <li><a href="mengelola_cabang.php">Daftar Cabang</a></li>
-				          			</ul>
-					            </li>
-					            <li>
-					            	<a data-toggle="collapse" data-parent="#stacked-menu" href="#p2"><span class="glyphicon glyphicon-user"></span> Mengelola Pengguna <span class="caret arrow"></span></a>
-					            	<ul class="nav nav-pills nav-stacked collapse" id="p2">
-				            			<li><a href="tambah_pengguna.php">Tambah Pengguna</a></li>
-							            <li><a href="mengelola_pengguna.php">Daftar Pengguna</a></li>
-				          			</ul>
-					            </li>
-					            <li>
-					            	<a data-toggle="collapse" data-parent="#stacked-menu" href="#p3"><span class="glyphicon glyphicon-list-alt"></span> Mengelola Variabel <span class="caret arrow"></span></a>
-					            	<ul class="nav nav-pills nav-stacked collapse" id="p3">
-				            			<li><a href="tambah_variabel.php">Tambah Variabel</a></li>
-							            <li><a href="mengelola_variabel.php">Daftar Variabel</a></li>
-				          			</ul>
-					            </li>
-					            <li>
-					            	<a data-toggle="collapse" data-parent="#stacked-menu" href="#p4"><span class="glyphicon glyphicon-tower"></span> Mengelola DMU <span class="caret arrow"></span></a>
-					            	<ul class="nav nav-pills nav-stacked collapse" id="p4">
-				            			<li><a href="tambah_dmu.php">Tambah DMU</a></li>
-							            <li><a href="mengelola_dmu.php">Daftar DMU</a></li>
-				          			</ul>
-					            </li> 
-					            <li><a href="hasil_efisiensi.php"><span class=" glyphicon glyphicon-stats"></span> Hasil Efisiensi</a></li> 
+								<?php 
+									if ($level == 'a') {
+										# Superadmin
+										echo '
+											<li>
+								            	<a data-toggle="collapse" data-parent="#stacked-menu" href="#p1"><span class="glyphicon glyphicon-duplicate"></span> Mengelola Cabang <span class="caret arrow"></span></a>
+								            	<ul class="nav nav-pills nav-stacked collapse" id="p1">
+							            			<li><a href="tambah_cabang.php">Tambah Cabang</a></li>
+										            <li><a href="mengelola_cabang.php">Daftar Cabang</a></li>
+							          			</ul>
+								            </li>
+								            <li>
+								            	<a data-toggle="collapse" data-parent="#stacked-menu" href="#p2"><span class="glyphicon glyphicon-user"></span> Mengelola Admin Cabang <span class="caret arrow"></span></a>
+								            	<ul class="nav nav-pills nav-stacked collapse" id="p2">
+							            			<li><a href="tambah_pengguna.php">Tambah Admin Cabang</a></li>
+										            <li><a href="mengelola_pengguna.php">Daftar Admin Cabang</a></li>
+							          			</ul>
+								            </li>
+								            <li>
+								            	<a data-toggle="collapse" data-parent="#stacked-menu" href="#p3"><span class="glyphicon glyphicon-list-alt"></span> Mengelola Variabel <span class="caret arrow"></span></a>
+								            	<ul class="nav nav-pills nav-stacked collapse" id="p3">
+							            			<li><a href="tambah_variabel.php">Tambah Variabel</a></li>
+										            <li><a href="mengelola_variabel.php">Daftar Variabel</a></li>
+							          			</ul>
+								            </li>
+										';
+									} elseif ($level == 'c') {
+										# Admin Cabang
+										echo '
+											<li>
+								            	<a data-toggle="collapse" data-parent="#stacked-menu" href="#p2"><span class="glyphicon glyphicon-user"></span> Mengelola Manajer Cabang <span class="caret arrow"></span></a>
+								            	<ul class="nav nav-pills nav-stacked collapse" id="p2">
+							            			<li><a href="tambah_pengguna.php">Tambah Manajer Cabang</a></li>
+										            <li><a href="mengelola_pengguna.php">Daftar Manajer Cabang</a></li>
+							          			</ul>
+								            </li>
+								            <li>
+								            	<a data-toggle="collapse" data-parent="#stacked-menu" href="#p4"><span class="glyphicon glyphicon-tower"></span> Mengelola DMU <span class="caret arrow"></span></a>
+								            	<ul class="nav nav-pills nav-stacked collapse" id="p4">
+							            			<li><a href="tambah_dmu.php">Tambah DMU</a></li>
+										            <li><a href="mengelola_dmu.php">Daftar DMU</a></li>
+							          			</ul>
+								            </li>
+										';
+									}
+								?>
 							</ul>
 					  	</div>
 					</div>	

@@ -20,8 +20,5 @@
 		}
 	} else {
 		header('Location: ../mengelola_dmu.php?balasan=6');
-	}
-	
-		
-	
+	}	
 ?>

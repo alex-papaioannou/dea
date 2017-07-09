@@ -38,7 +38,6 @@
 								    <div class="form-group">
 								      	<div class="col-sm-6 col-sm-offset-3">
 								        	<button type="submit" class="btn btn-default">Simpan</button>
-								        	<button type="reset" class="btn btn-primary">Kosongkan</button>
 								      	</div>
 								    </div>
 								</fieldset>

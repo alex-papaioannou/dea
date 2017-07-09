@@ -2,8 +2,8 @@
 	session_start();
 	include 'connect_db.php';
 	// Memastikan Data Terkirim Melalui Form
-	if (ISSET($_POST["id_klinik"])) {
-		$id_klinik = $_POST["id_klinik"];
+	if (ISSET($_SESSION['id_klinik'])) {
+		$id_klinik = $_SESSION['id_klinik'];
 		// Memastikan cabang klinik yang dipilih belum terdaftar
 		$query = mysqli_query($conn, 'SELECT * FROM tb_detail_dmu WHERE id_klinik='.$id_klinik.'');
 		if (mysqli_num_rows($query) > 0) {
@@ -22,17 +22,17 @@
 							$id_variabel = $idvar['id_variabel'];
 						}
 					} else {
-						header('Location: ../mengelola_dmu.php?balasan=2');
+						header('Location: ../mengelola_dmu.php?balasan=2A');
 					}
 					// Insert ke tb_detail_dmu
 					$query3 = mysqli_query($conn, "INSERT INTO tb_detail_dmu (id_klinik, id_variabel, nilai_variabel) VALUES ('$id_klinik','$id_variabel','$variabel')");
 				}
 			} else {
-				header('Location: ../mengelola_dmu.php?balasan=2');
+				header('Location: ../mengelola_dmu.php?balasan=2B');
 			}
 			header('Location: ../mengelola_dmu.php?balasan=1');
 		}
 	} else {
-		header('Location: ../mengelola_dmu.php?balasan=2');
+		header('Location: ../mengelola_dmu.php?balasan=2C&id='.$id_klinik_user.'');
 	}
 ?>

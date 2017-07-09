@@ -52,7 +52,7 @@
 												<div class="form-group">
 												    <label class="col-sm-4 control-label">'.$var["nama_variabel"].'</label>
 												    <div class="col-sm-6">
-												        <input class="form-control" name="'.$name.'" type="number" min="0" placeholder="'.$satuan.'" value="'.$value.'" required>
+												        <input class="form-control" name="'.$name.'" type="number" min="1" placeholder="'.$satuan.'" value="'.$value.'" required>
 												    </div>
 												</div>
 											';
@@ -61,7 +61,6 @@
 								    <div class="form-group">
 								      	<div class="col-sm-6 col-sm-offset-4">
 								        	<button type="submit" class="btn btn-default">Simpan</button>
-								        	<button type="reset" class="btn btn-primary">Kosongkan</button>
 								      	</div>
 								    </div>
 								</fieldset>

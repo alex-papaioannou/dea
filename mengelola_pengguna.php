@@ -2,26 +2,46 @@
 				<div class="col-sm-9">
 					<div class="panel panel-primary">
 					  	<div class="panel-heading">
-					    	<h3 class="panel-title"><span class="glyphicon glyphicon-user"></span> Mengelola Pengguna</h3>
+					  	<?php
+					  		if ($level == 'a') {
+						  		# Superadmin
+						  		echo '<h3 class="panel-title"><span class="glyphicon glyphicon-user"></span> Mengelola Admin Cabang</h3>';
+						  	} elseif ($level == 'c') {
+						  		# Admin Cabang
+						  		echo '<h3 class="panel-title"><span class="glyphicon glyphicon-user"></span> Mengelola Manajer Cabang</h3>';
+						  	}
+					  	?>
 					  	</div>
 					  	<div class="panel-body">
 						  	<div class="col-sm-11 col-sm-offset-1">
-						  		<legend>Daftar Pengguna</legend>
-						  		<?php
-						  			if (ISSET($_GET['balasan']) AND ($_GET['balasan']==1)) {
-						  			  	echo '<div class="alert alert-dismissible alert-success"><button type="button" class="close" data-dismiss="alert">&times;</button><span class="glyphicon glyphicon-ok"></span> Data berhasil ditambahkan</div>';
-						  			} elseif (ISSET($_GET['balasan']) AND ($_GET['balasan']==2)) {
-						  			  	echo '<div class="alert alert-dismissible alert-danger"><button type="button" class="close" data-dismiss="alert">&times;</button><span class="glyphicon glyphicon-exclamation-sign"></span> Kesalahan telah terjadi</div>';
-						  			} elseif (ISSET($_GET['balasan']) AND ($_GET['balasan']==3)) {
-						  			  	echo '<div class="alert alert-dismissible alert-success"><button type="button" class="close" data-dismiss="alert">&times;</button><span class="glyphicon glyphicon-ok"></span> Data berhasil dihapus</div>';
-						  			} elseif (ISSET($_GET['balasan']) AND ($_GET['balasan']==4)) {
-						  			  	echo '<div class="alert alert-dismissible alert-danger"><button type="button" class="close" data-dismiss="alert">&times;</button><span class="glyphicon glyphicon-exclamation-sign"></span> Gagal menghapus data</div>';
-						  			} elseif (ISSET($_GET['balasan']) AND ($_GET['balasan']==5)) {
-						  			  	echo '<div class="alert alert-dismissible alert-success"><button type="button" class="close" data-dismiss="alert">&times;</button><span class="glyphicon glyphicon-ok"></span> Data berhasil diubah</div>';
-						  			} elseif (ISSET($_GET['balasan']) AND ($_GET['balasan']==6)) {
-						  			  	echo '<div class="alert alert-dismissible alert-danger"><button type="button" class="close" data-dismiss="alert">&times;</button><span class="glyphicon glyphicon-exclamation-sign"></span> Gagal mengubah data</div>';
-						  			}
-						  		?>
+						  	<?php 
+						  		if ($level == 'a') {
+						  			# Superadmin
+						  			echo '<legend>Daftar Admin Cabang</legend>';
+						  		} elseif ($level == 'c') {
+						  			# Admin Cabang
+						  			echo '<legend>Daftar Manajer Cabang</legend>';
+						  			// Mendapatkan cabang klinik
+								  	$q = mysqli_query($conn, 'SELECT * FROM tb_pengguna WHERE id_pengguna="'.$id.'"');
+								  	$d = mysqli_fetch_assoc($q);
+								  	$cabang_klinik = $d['id_klinik'];
+						  		}
+						  			
+						  		# Notifikasi
+						  		if (ISSET($_GET['balasan']) AND ($_GET['balasan']==1)) {
+						  			  echo '<div class="alert alert-dismissible alert-success"><button type="button" class="close" data-dismiss="alert">&times;</button><span class="glyphicon glyphicon-ok"></span> Data berhasil ditambahkan</div>';
+						  		} elseif (ISSET($_GET['balasan']) AND ($_GET['balasan']==2)) {
+						  			  echo '<div class="alert alert-dismissible alert-danger"><button type="button" class="close" data-dismiss="alert">&times;</button><span class="glyphicon glyphicon-exclamation-sign"></span> Kesalahan telah terjadi</div>';
+						  		} elseif (ISSET($_GET['balasan']) AND ($_GET['balasan']==3)) {
+						  			  echo '<div class="alert alert-dismissible alert-success"><button type="button" class="close" data-dismiss="alert">&times;</button><span class="glyphicon glyphicon-ok"></span> Data berhasil dihapus</div>';
+						  		} elseif (ISSET($_GET['balasan']) AND ($_GET['balasan']==4)) {
+						  			  echo '<div class="alert alert-dismissible alert-danger"><button type="button" class="close" data-dismiss="alert">&times;</button><span class="glyphicon glyphicon-exclamation-sign"></span> Gagal menghapus data</div>';
+						  		} elseif (ISSET($_GET['balasan']) AND ($_GET['balasan']==5)) {
+						  			  echo '<div class="alert alert-dismissible alert-success"><button type="button" class="close" data-dismiss="alert">&times;</button><span class="glyphicon glyphicon-ok"></span> Data berhasil diubah</div>';
+						  		} elseif (ISSET($_GET['balasan']) AND ($_GET['balasan']==6)) {
+						  			  echo '<div class="alert alert-dismissible alert-danger"><button type="button" class="close" data-dismiss="alert">&times;</button><span class="glyphicon glyphicon-exclamation-sign"></span> Gagal mengubah data</div>';
+						  		}
+						  	?>
 						    	<table class="table table-bordered table-hover">
 									<thead>
 										<tr>
@@ -35,7 +55,14 @@
 									<tbody>
 										<?php
 											$i=1;
-											$query = mysqli_query($conn, "SELECT * FROM tb_pengguna AS p, tb_klinik AS k WHERE p.id_klinik = k.id_klinik ORDER BY p.id_pengguna ASC");
+											if ($level == 'a') {
+												# Login sebagai Superadmin
+												$query = mysqli_query($conn, "SELECT * FROM tb_pengguna AS p, tb_klinik AS k WHERE p.id_klinik = k.id_klinik AND p.level = 'c' ORDER BY p.id_pengguna ASC");
+											} else {
+												# Login sebagai Admin Cabang
+												$query = mysqli_query($conn, 'SELECT * FROM tb_pengguna AS p, tb_klinik AS k WHERE p.id_klinik = k.id_klinik AND p.level = "m" AND p.id_klinik = "'.$cabang_klinik.'" ORDER BY p.id_pengguna ASC');
+											}
+											
 											if (mysqli_num_rows($query) > 0) {
 											    // output data of each row
 											    while($pengguna = mysqli_fetch_assoc($query)) {

@@ -11,19 +11,29 @@
 			while($data = mysqli_fetch_assoc($query)){
 				$level = $data['level'];
 				$id = $data['id_pengguna'];
+				$id_klinik = $data['id_klinik'];
 			}
 			$_SESSION['username'] = $username;
 			$_SESSION['password'] = $password;
 			$_SESSION['id'] = $id;
 			$_SESSION['level'] = $level;
+			$_SESSION['id_klinik'] = $id_klinik;
 			// Klasifikasi Level Pengguna
 			if($level=='a'){ 
 				// Admin
-				$_SESSION['user'] = "Admin";
+				$_SESSION['user'] = "Superadmin";
 				header("location: ../beranda.php");
-			}else if ($level=='p'){ 
-				// Pengelola
-				$_SESSION['user'] = "Pengelola";
+			}elseif ($level=='c'){ 
+				// Admin Cabang
+				$_SESSION['user'] = "Admin Cabang";
+				header("location: ../beranda.php");
+			} elseif ($level=='m') {
+				// Manajer Cabang
+				$_SESSION['user'] = "Manajer Cabang";
+				header("location: ../beranda.php");
+			} else {
+				// Manajer Pusat
+				$_SESSION['user'] = "Manajer Pusat";
 				header("location: ../beranda.php");
 			}
 		} else {

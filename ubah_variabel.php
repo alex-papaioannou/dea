@@ -3,7 +3,6 @@
 	$id = $_GET['id'];
 	$query = mysqli_query($conn, 'SELECT * FROM tb_variabel WHERE id_variabel='.$id.'');
 	if (mysqli_num_rows($query) > 0) {
-		// output data of each row
 		while($var = mysqli_fetch_assoc($query)) {
 			$nama = $var['nama_variabel'];
 			$jenis = $var['jenis_variabel'];
@@ -55,7 +54,6 @@
 								    <div class="form-group">
 								      	<div class="col-sm-6 col-sm-offset-3">
 								        	<button type="submit" class="btn btn-default">Simpan</button>
-								        	<button type="reset" class="btn btn-primary">Kosongkan</button>
 								      	</div>
 								    </div>
 								</fieldset>

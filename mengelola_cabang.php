@@ -27,6 +27,7 @@
 										<tr>
 											<th>No</th>
 											<th>Cabang Klinik</th>
+											<th>Alamat</th>
 											<th>Aksi</th>
 										</tr>
 									</thead>
@@ -41,6 +42,7 @@
 													<tr>
 														<td>'.$i.'</td>
 														<td>'.$cabang['cabang_klinik'].'</td>
+														<td>'.$cabang['alamat'].'</td>
 														<td>
 															<a href="ubah_cabang.php?id='.$cabang['id_klinik'].'" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-edit"></span></a>
 															<a href="process/hapus_cabang.php?id='.$cabang['id_klinik'].'" onclick="return hapus()" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-remove"></span></a>

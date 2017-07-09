@@ -58,8 +58,8 @@
 						if (mysqli_num_rows($q3) > 0) {
 							while($var3 = mysqli_fetch_assoc($q3)) {
 								$id_klinik = $var3['id_klinik'];
-								// Insert value=0 pada id_var=$id_var_baru dan id_klinik=$id_klinik
-								$q5 = "INSERT INTO tb_detail_dmu (id_klinik, id_variabel, nilai_variabel) VALUES ('$id_klinik','$id_var_baru','0')";
+								// Insert value=1 pada id_var=$id_var_baru dan id_klinik=$id_klinik
+								$q5 = "INSERT INTO tb_detail_dmu (id_klinik, id_variabel, nilai_variabel) VALUES ('$id_klinik','$id_var_baru','1')";
 								if (mysqli_query($conn, $q5)) {
 									header('Location: ../mengelola_variabel.php?balasan=1');
 								} else {

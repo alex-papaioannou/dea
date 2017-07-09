@@ -56,7 +56,7 @@
 									<tbody>
 										<?php
 											$i = 1;
-											$query = mysqli_query($conn, "SELECT k.cabang_klinik, d.id_klinik FROM tb_klinik AS k, tb_detail_dmu AS d WHERE k.id_klinik=d.id_klinik GROUP BY id_klinik ORDER BY id_detail");
+											$query = mysqli_query($conn, 'SELECT k.cabang_klinik, d.id_klinik FROM tb_klinik AS k, tb_detail_dmu AS d WHERE k.id_klinik=d.id_klinik AND d.id_klinik="'.$_SESSION['id_klinik'].'" GROUP BY id_klinik ORDER BY id_detail_dmu');
 											if (mysqli_num_rows($query)) {
 												while ($cabang = mysqli_fetch_assoc($query)) {
 													echo '
@@ -109,11 +109,7 @@
 										?>
 									</tbody>
 								</table>
-								<?php
-									$q = mysqli_query($conn, "SELECT * FROM tb_detail_dmu ORDER BY id_klinik ASC LIMIT 0,1");
-									$d = mysqli_fetch_assoc($q);
-								?>
-								<a href="<?php echo 'process/simplex/simplex.php?dmu='.$d["id_klinik"].'&loop=0'; ?>" class="btn btn-info" type="button">Hitung Efisiensi</a>
+								<a href="<?php echo 'process/simplex.php'; ?>" class="btn btn-info" type="button">Hitung Efisiensi</a>
 						  	</div>
 					  	</div>
 					</div>

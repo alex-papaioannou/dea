@@ -1,18 +1,19 @@
 <?php
 	include 'connect_db.php';
-	if ((ISSET($_GET['id'])) AND ($_POST['username'])) {
+	if ((ISSET($_GET['id'])) AND ($_POST['nama_pengguna'])) {
 		$id = $_GET['id'];
-		$lvl = $_GET['lvl'];
 		$type = $_GET['type'];
 		$nama = trim($_POST['nama_pengguna']);
-		$username = str_replace(" ","",$_POST["username"]);
 		$password = md5(trim($_POST['password']));
-		if ($lvl == 'a') {
-			$id_klinik = 0;
-		} else {
-			$id_klinik = $_POST['cabang_klinik'];
+		if (ISSET($_GET['lvl'])) {
+			$lvl = $_GET['lvl'];
+			if ($lvl == 'a') {
+				$id_klinik = 0;
+			} else {
+				$id_klinik = $_POST['cabang_klinik'];
+			}
 		}
-
+		
 		// Mengecek apakah data sudah pernah terdaftar
 		$query = 'SELECT COUNT(username) AS total FROM tb_pengguna WHERE LOWER(username)=LOWER("'.$username.'")';
 		if (mysqli_query($conn, $query)) {
@@ -31,7 +32,7 @@
 					$query = mysqli_query($conn, $query);
 					$data = mysqli_fetch_assoc($query);
 					if ($data['total'] == 0) {
-						$query = 'UPDATE tb_pengguna SET nama="'.$nama.'", username="'.$username.'", password="'.$password.'", id_klinik="'.$id_klinik.'" WHERE id_pengguna="'.$id.'"';
+						$query = 'UPDATE tb_pengguna SET nama="'.$nama.'", password="'.$password.'" WHERE id_pengguna="'.$id.'"';
 						if (mysqli_query($conn, $query)) {
 							if ($type == 'profile') {
 								header('Location: ../beranda.php?balasan=1');
@@ -62,7 +63,7 @@
 					}
 				}
 			} elseif ($data['total'] == 0) { // Jika == 0 artinya belum pernah terdaftar
-				$query = 'UPDATE tb_pengguna SET nama="'.$nama.'", username="'.$username.'", password="'.$password.'", id_klinik="'.$id_klinik.'", level="'.$lvl.'" WHERE id_pengguna="'.$id.'"';
+				$query = 'UPDATE tb_pengguna SET nama="'.$nama.'", password="'.$password.'" WHERE id_pengguna="'.$id.'"';
 				if (mysqli_query($conn, $query)) {
 				    if ($type == 'profile') {
 						header('Location: ../beranda.php?balasan=1');

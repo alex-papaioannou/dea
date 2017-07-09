@@ -37,13 +37,6 @@ form {
 	height: 22px;
 }
 
-/*.sidebar {
-	margin-left: -15px;
-	margin-top: -18px;
-}
-niatnya sidebar mau dibikin mepet pol ke kiri dan atas (navbar). 
-tp efeknya pas dizoom gak responsive*/
-
 #p1, #p2, #p3, #p4 {
   	padding-left: 30px;
 } /* Supaya Sub-Menu pada sidebar menjorok ke kanan */

@@ -2,10 +2,11 @@
 	session_start();
 	include 'connect_db.php';
 	// Memastikan Data Terkirim Melalui Form
-	if (ISSET($_POST["cabang_klinik"])) {
+	if ((ISSET($_POST["cabang_klinik"])) AND (ISSET($_POST["alamat"]))) {
 		$cabang = trim($_POST["cabang_klinik"]);
+		$alamat = trim($_POST["alamat"]);
 		// Mengecek apakah data sudah pernah terdaftar
-		$query = 'SELECT COUNT(cabang_klinik) AS total FROM tb_klinik WHERE LOWER(cabang_klinik)=LOWER("'.$cabang.'")';
+		$query = 'SELECT COUNT(*) AS total FROM tb_klinik WHERE LOWER(cabang_klinik)=LOWER("'.$cabang.'") AND LOWER(alamat)=LOWER("'.$alamat.'")';
 		if (mysqli_query($conn, $query)) {
 			$query = mysqli_query($conn, $query);
 			$data = mysqli_fetch_assoc($query);
@@ -13,11 +14,20 @@
 			if ($data['total'] > 0) {
 		    	header('Location: ../tambah_cabang.php?balasan=1');
 			} elseif ($data['total'] == 0) { // Jika == 0 artinya belum pernah terdaftar
-				$query = "INSERT INTO tb_klinik (cabang_klinik) VALUES ('$cabang')";
-				if (mysqli_query($conn, $query)) {
-				    header('Location: ../mengelola_cabang.php?balasan=1');
-				} else {
-				    header('Location: ../mengelola_cabang.php?balasan=2');
+				$query2 = 'SELECT COUNT(*) AS total FROM tb_klinik WHERE LOWER(cabang_klinik)=LOWER("'.$cabang.'") OR LOWER(alamat)=LOWER("'.$alamat.'")';
+				if (mysqli_query($conn, $query2)) {
+					$query2 = mysqli_query($conn, $query2);
+					$data2 = mysqli_fetch_assoc($query2);
+					if ($data2['total'] > 0) {
+						header('Location: ../tambah_cabang.php?balasan=1');
+					} else {
+						$query = "INSERT INTO tb_klinik (cabang_klinik, alamat) VALUES ('$cabang','$alamat')";
+						if (mysqli_query($conn, $query)) {
+						    header('Location: ../mengelola_cabang.php?balasan=1');
+						} else {
+						    header('Location: ../mengelola_cabang.php?balasan=2');
+						}
+					}
 				}
 			}
 		} else {
