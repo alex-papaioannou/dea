@@ -1,13 +1,12 @@
 <?php 
 	session_start();
 	include "connect_db.php";
-	
 	# Menghapus Semua Data Pada DB Tabel Perhitungan Efisiensi
 	$q = mysqli_query($conn, 'DELETE FROM tb_perhitungan_efisiensi');
 	
 	// Mendapatkan semua id klinik
 	$index_dmu = 0;
-	$q = mysqli_query($conn, 'SELECT id_klinik FROM tb_detail_dmu GROUP BY id_klinik');
+	$q = mysqli_query($conn, 'SELECT id_klinik FROM tb_detail_dmu GROUP BY id_klinik ORDER BY id_klinik');
 	if (mysqli_num_rows($q) > 0) {
 		while ($data = mysqli_fetch_assoc($q)) {
 			$id_dmu_klinik[$index_dmu] = $data['id_klinik'];
@@ -20,7 +19,7 @@
 
 	// Mendapatkan Semua ID Variabel Terurut Berdasarkan Jenis Var dan ID
 	$id_variabel = array();
-	$q = mysqli_query($conn, 'SELECT d.id_variabel FROM tb_detail_dmu AS d, tb_variabel AS v WHERE d.id_variabel=v.id_variabel GROUP BY d.id_variabel ORDER BY v.jenis_variabel ASC');
+	$q = mysqli_query($conn, 'SELECT d.id_variabel FROM tb_detail_dmu AS d, tb_variabel AS v WHERE d.id_variabel=v.id_variabel GROUP BY d.id_variabel ORDER BY v.jenis_variabel, v.id_variabel ASC');
 	if (mysqli_num_rows($q) > 0) {
 		$i = 0;
 		while ($data = mysqli_fetch_assoc($q)) {
@@ -143,10 +142,10 @@
 				}
 			}
 		}
-
+		
 		# Inisialisasi tabel simplex big M
 		$tabel_simplex_bigm = tabel_simplex_bigm($fungsi_tujuan, $fungsi_kendala, $n_var_input, $n_var_output, $m);
-
+		
 		# Hasil inisialisasi tabel simplex
 		$fungsi_tujuan = $tabel_simplex_bigm[0];
 		$fungsi_kendala = $tabel_simplex_bigm[1];
@@ -154,15 +153,12 @@
 		$m = $tabel_simplex_bigm[3];
 		$zj = $tabel_simplex_bigm[4];
 		$cj_zj = $tabel_simplex_bigm[5];
-
 		# Perhitungan simplex big M
 		$bigm = simplex_bigm($fungsi_tujuan, $fungsi_kendala, $cj, $m, $zj, $cj_zj, $n_var_input, $n_var_output);
-
 	/*** End Of BCC Model ***/ 
 
 	/*** CCR Model ***/ 
-		$q4=mysqli_query($conn, 'SELECT d.id_variabel FROM tb_detail_dmu AS d, tb_variabel AS v WHERE d.id_variabel=v.id_variabel GROUP BY d.id_variabel ORDER BY v.jenis_variabel');
-		// hasilnya 7
+		$q4=mysqli_query($conn, 'SELECT d.id_variabel FROM tb_detail_dmu AS d, tb_variabel AS v WHERE d.id_variabel=v.id_variabel GROUP BY d.id_variabel ORDER BY v.jenis_variabel, v.id_variabel');
 		if (mysqli_num_rows($q4)>0) {
 			$a=0; $c=0;
 			$b=1; $d=1;
@@ -201,7 +197,7 @@
 			}
 		}
 
-		// Menambahkan Var -Z di dalam Fungsi CCR Z sesuai DMU ke-N			
+		// Menambahkan Var -Z di dalam Fungsi CCR Z sesuai DMU ke-N
 		for ($m=0; $m < $n_var_input; $m++) { 
 			$fungsi_ccr_z[$m]['z'] = -$fungsi_ccr_z[$m]['x'.$index_dmu_ccr];
 			$fungsi_ccr_z[$m]['notasi'] = '=';
@@ -231,15 +227,16 @@
 					$o++;
 				}
 			}
+			
 			for ($i=1; $i <= $n_var_input; $i++) { 
 				# Mendapatkan Rekomendasi Per Variabel Berdasarkan Jenis Variabel dan ID Variabel (ASC)
 				$nilai_rekomendasi = $rekomendasi[0]['x'.$i];
-				$ii = $i - 1;
+				$ii = $i - 1; 
 				# Menyimpan Nilai Efisiensi dan Rekomendasi Ke DB
-				if ($bigm < 1) {
-					$query_insert = mysqli_query($conn, "INSERT INTO tb_perhitungan_efisiensi (id_klinik, id_variabel, nilai_efisiensi, nilai_awal, rekomendasi) VALUES ('$id_dmu_klinik[$index_dmu]','$id_variabel[$ii]','$bigm','$nilai_awal[$ii]','$nilai_rekomendasi')");
-				} else {
+				if ($bigm == 1) {
 					$query_insert = mysqli_query($conn, "INSERT INTO tb_perhitungan_efisiensi (id_klinik, id_variabel, nilai_efisiensi, nilai_awal, rekomendasi) VALUES ('$id_dmu_klinik[$index_dmu]','$id_variabel[$ii]','$bigm','$nilai_awal[$ii]','$nilai_awal[$ii]')");
+				} else {
+					$query_insert = mysqli_query($conn, "INSERT INTO tb_perhitungan_efisiensi (id_klinik, id_variabel, nilai_efisiensi, nilai_awal, rekomendasi) VALUES ('$id_dmu_klinik[$index_dmu]','$id_variabel[$ii]','$bigm','$nilai_awal[$ii]','$nilai_rekomendasi')");
 				}
 			}
 		$index_dmu_ccr++;
@@ -379,14 +376,25 @@
 		# Iterasi Berhenti Ketika Cj - Zj <= 0
 		$n_kendala = count($fungsi_kendala);
 		$max = max($cj_zj);
-		if ($max > 0) {
-			$terminasi = 1; // True
-		} else {
-			$terminasi = 0; // False
-		}
+			if ($max > 0) {
+			// Pencegahan Infinite Loop Pada $max Karena Nilai
+			// Tidak berubah dan Masih Dalam Range 0-1
+				$max = round($max,1);
+				if ($max > 0) {
+					$max = round($max);
+					if ($max > 0) {
+						$terminasi = 1; // False
+					} else {
+						$terminasi = 0; // True
+					}
+				}
+			} else {
+				$terminasi = 0; // True
+			}
 		$iterasi = 1;
-
-		while ($terminasi == 1) {
+		
+		for ($r=0; $r < 4; $r++) { 
+		//while ($terminasi == 1) {
 		// Jika Kondisi Optimal Belum Tercapai
 		// Dengan Kata Lain Tidak Memenuhi Cj - Zj <= 0
 		// Lanjut Iterasi
@@ -512,7 +520,7 @@
 						$cj_zj['w'.$i] = $cj['w'.$i] - $zj['w'.$i];
 					}
 					# Var U (Output)
-					for ($i=0; $i <= $n_var_output; $i++) { 
+					for ($i=1; $i <= $n_var_output; $i++) { 
 						$cj_zj['u'.$i] = 0; 
 						$cj_zj['u'.$i] = $cj['u'.$i] - $zj['u'.$i];
 					}
@@ -534,17 +542,24 @@
 				# Iterasi Berhenti Ketika Cj - Zj <= 0
 				$max = max($cj_zj);
 				if ($max > 0) {
-					$terminasi = 1; // True
+					// Pencegahan Infinite Loop Pada $max Karena Nilai
+					// Tidak berubah dan Masih Dalam Range 0-1
+					$max = round($max,1);
+					if ($max > 0) {
+						$max = round($max);
+						if ($max > 0) {
+							$terminasi = 1; // False
+						} else {
+							$terminasi = 0; // True
+						}
+					}
 				} else {
-					$terminasi = 0; // False
+					$terminasi = 0; // True
 				}
-
-				//simplex_bigm($fungsi_tujuan, $fungsi_kendala, $cj, $m, $zj, $cj_zj, $n_var_input, $n_var_output);
-				//return $hasil_simplex;
-			} 
-			// Kondisi Optimal Telah Tercapai
-			// Dengan Kata Lain Cj - Zj <= 0
-			return $hasil_simplex;	
+		} 
+		// Kondisi Optimal Telah Tercapai
+		// Dengan Kata Lain Cj - Zj <= 0
+		return $hasil_simplex;	
 	}
 
 	/**
@@ -572,12 +587,12 @@
 		}
 		# Membagi Koefisien Fungsi Z dengan Koefisien Var Z
 		# Sekaligus Mengkalikan Fungsi Z dengan -1
-		for ($i=0; $i < $n_var_input; $i++) { 
-			for ($j=1; $j <= $n_dmu; $j++) { 
-				$f_ccr_z[0]['x'.$j] = -1 * ($f_ccr_z[0]['x'.$j] / abs($f_ccr_z[0]['z']));
-			}
-			$f_ccr_z[0]['z'] = $f_ccr_z[0]['z'] / abs($f_ccr_z[0]['z']);
+		for ($j=1; $j <= $n_dmu; $j++) { 
+			$f_ccr_z[0]['x'.$j] = $f_ccr_z[0]['x'.$j] / abs($f_ccr_z[0]['z']);
+			$f_ccr_z[0]['x'.$j] = $f_ccr_z[0]['x'.$j] * -1;
 		}
+		$f_ccr_z[0]['z'] = $f_ccr_z[0]['z'] / abs($f_ccr_z[0]['z']);
+		
 		# Pindah Ruas Z
 		# Menambahkan Var Slack pada Fungsi Z
 		$f_ccr_z[0]['ruas_kanan'] = 0;
@@ -605,7 +620,6 @@
 			}
 			$fungsi_ccr_kendala[$i]['ruas_kanan'] = -$fungsi_ccr_kendala[$i]['ruas_kanan'];
 		}
-
 		$tabel_dual_simplex = array($f_ccr_z, $fungsi_ccr_kendala);
 		return $tabel_dual_simplex;
 	}
@@ -614,7 +628,7 @@
 	 * Fungsi Perhitungan Dual Simplex
 	 * @param  [array]   $tabel_ccr [array assoc 3 dimensi]
 	 * @param  [integer] $n_dmu     [integer]
-	 * @return [arrau] 	 $hasil     [array assoc 3 dimensi]
+	 * @return [array] 	 $hasil     [array assoc 3 dimensi]
 	 */
 	function dual_simplex($tabel_ccr, $n_dmu) {
 		$f_ccr_z = $tabel_ccr[0];
@@ -680,6 +694,9 @@
 					}
 				
 				# Menghitung Baris Baru
+					if (!ISSET($f_ccr_kendala)) {
+						$f_ccr_kendala = array();
+					}
 					# Baris Yang Berperan Sebagai Pivot Baris
 					for ($i=1; $i <= $n_dmu; $i++) { 
 						$f_ccr_kendala[$index_pivot_baris_ccr]['x'.$i] = $fungsi_ccr_kendala[$index_pivot_baris_ccr]['x'.$i] / $fungsi_ccr_kendala[$index_pivot_baris_ccr][$index_pivot_kolom_ccr];

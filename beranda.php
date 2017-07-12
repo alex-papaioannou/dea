@@ -81,7 +81,7 @@
 															</thead>
 															<tbody>
 											';
-											$q = mysqli_query($conn, 'SELECT * FROM tb_perhitungan_efisiensi AS p, tb_variabel AS v, tb_klinik AS k WHERE p.id_variabel=v.id_variabel AND k.id_klinik=p.id_klinik AND p.id_klinik="'.$id_dmu[$i].'"');
+											$q = mysqli_query($conn, 'SELECT * FROM tb_perhitungan_efisiensi AS p, tb_variabel AS v, tb_klinik AS k WHERE p.id_variabel=v.id_variabel AND k.id_klinik=p.id_klinik AND p.id_klinik="'.$id_dmu[$i].'" ORDER BY v.id_variabel ASC');
 											if (mysqli_num_rows($q) > 0) {
 											  	$j = 1;
 											  	while ($data = mysqli_fetch_assoc($q)) {
@@ -111,7 +111,7 @@
 											';
 										}
 									} else {
-										echo '<br>
+										echo '
 										  		<div class="col-sm-12">
 										  			<div class="alert alert-dismissible alert-warning">
   														<button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -171,7 +171,7 @@
 														</thead>
 													<tbody>
 										';
-										$q = mysqli_query($conn, 'SELECT * FROM tb_perhitungan_efisiensi AS p, tb_variabel AS v, tb_klinik AS k WHERE p.id_variabel=v.id_variabel AND k.id_klinik=p.id_klinik AND p.id_klinik="'.$id_klinik.'"');
+										$q = mysqli_query($conn, 'SELECT * FROM tb_perhitungan_efisiensi AS p, tb_variabel AS v, tb_klinik AS k WHERE p.id_variabel=v.id_variabel AND k.id_klinik=p.id_klinik AND p.id_klinik="'.$id_klinik.'" ORDER BY p.id_variabel ASC');
 										if (mysqli_num_rows($q) > 0) {
 											$j = 1;
 											while ($data = mysqli_fetch_assoc($q)) {
@@ -200,7 +200,7 @@
 											  	</div>
 										';
 									} else {
-										echo '<br>
+										echo '
 										  		<div class="col-sm-12">
 										  			<div class="alert alert-dismissible alert-warning">
   														<button type="button" class="close" data-dismiss="alert">&times;</button>

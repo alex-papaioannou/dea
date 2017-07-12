@@ -28,7 +28,6 @@
 									$input = 0;
 									$output = 0;
 									if (mysqli_num_rows($query) > 0) {
-										// output data of each row
 										while($var = mysqli_fetch_assoc($query)) {
 											if ($var['jenis_variabel'] == 'i') {
 												$input++;
@@ -45,7 +44,7 @@
 									$query = mysqli_query($conn, 'SELECT k.cabang_klinik, d.id_klinik FROM tb_klinik AS k, tb_detail_dmu AS d WHERE k.id_klinik=d.id_klinik AND d.id_klinik="'.$_SESSION['id_klinik'].'" GROUP BY id_klinik ORDER BY id_detail_dmu');
 									if (mysqli_num_rows($query) > 0) {
 										echo '
-											<table class="table table-bordered table-hover">
+											<table class="table table-bordered table-hover table-responsive">
 												<thead>
 													<tr>
 														<th rowspan="2">No</th>
@@ -107,11 +106,21 @@
 											';
 											$i++;
 										}
-										echo '
-												</tbody>
-											</table>
+										$q = mysqli_query($conn, 'SELECT id_klinik FROM tb_detail_dmu GROUP BY id_klinik');
+										if (mysqli_num_rows($q) == 1) {
+											echo '
+													</tbody>
+												</table>
+											<button class="btn btn-info" type="button" disabled>Hitung Efisiensi</button>
+											';
+										} else {
+											echo '
+													</tbody>
+												</table>
 											<a href="process/simplex.php" class="btn btn-info" type="button">Hitung Efisiensi</a>
-										';
+											';
+										}
+										
 									} else {
 										echo '
 											<div class="alert alert-dismissible alert-warning">
