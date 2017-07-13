@@ -49,3 +49,8 @@ form {
 th, td {
 	text-align: center;
 }
+
+/* Progress Bar Merah pada Dashboard */
+.progress-bar-danger {
+	background-color: #D5220F;
+}

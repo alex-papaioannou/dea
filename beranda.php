@@ -42,28 +42,33 @@
 										for ($i=0; $i < $n_dmu; $i++) { 
 										  	# Menampilkan Efisiensi dan Tabel Rekomendasi
 										  	$persen = $efisiensi[$i] * 100;
+										  	if ($efisiensi[$i] >= 0.9) {
+										  		$alert = "alert-success";
+										  		$progress = "progress-bar-success";
+										  	} else {
+										  		$alert = "alert-danger";
+										  		$progress = "progress-bar-danger";
+										  	}
 										  	echo '
 											  		<div class="col-sm-5">
-														<div class="panel panel-default">
-															<div class="panel-body">
+														<div class="alert alert-dismissible '.$alert.'">
 																<div class="row">
 																	<div class="col-sm-9 col-xs-9">
-																		<h4 align="left">'.$cabang_klinik[$i].'</h4>
+																		<h4 align="left"><strong>'.$cabang_klinik[$i].'</strong></h4>
 																	</div>
 																	<div class="col-sm-3 col-xs-3">
-																		<h4 align="right">'.$efisiensi[$i].'</h4>
+																		<h4 align="right"><strong>'.$efisiensi[$i].'</strong></h4>
 																	</div>
 																</div>
 																<br>
 																<div class="row">
 																	<div class="col-sm-12">
 																		<div class="progress">
-																			<div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="'.$persen.'" aria-valuemin="0" aria-valuemax="100" style="width:'.$persen.'%">'.$persen.'%
+																			<div class="progress-bar '.$progress.'" role="progressbar" aria-valuenow="'.$persen.'" aria-valuemin="0" aria-valuemax="100" style="width:'.$persen.'%">'.$persen.'%
 																			</div>
 																		</div>
 																	</div>
 																</div>
-															</div>
 														</div>
 													</div>
 											';
@@ -132,30 +137,35 @@
 										$efisiensi = round($d['nilai_efisiensi'], 3);
 										# Menampilkan Efisiensi dan Tabel Rekomendasi
 										$persen = $efisiensi * 100;
-										echo '
-											  	<div class="col-sm-5">
-													<div class="panel panel-default">
-														<div class="panel-body">
-															<div class="row">
-																<div class="col-sm-9 col-xs-9">
-																	<h4 align="left">Cabang '.$cabang_klinik.'</h4>
+										if ($efisiensi >= 0.9) {
+										  		$alert = "alert-success";
+										  		$progress = "progress-bar-success";
+										  	} else {
+										  		$alert = "alert-danger";
+										  		$progress = "progress-bar-danger";
+										  	}
+										  	echo '
+											  		<div class="col-sm-5">
+														<div class="alert alert-dismissible '.$alert.'">
+																<div class="row">
+																	<div class="col-sm-9 col-xs-9">
+																		<h4 align="left"><strong>'.$cabang_klinik.'</strong></h4>
+																	</div>
+																	<div class="col-sm-3 col-xs-3">
+																		<h4 align="right"><strong>'.$efisiensi.'</strong></h4>
+																	</div>
 																</div>
-																<div class="col-sm-3 col-xs-3">
-																	<h4 align="right">'.$efisiensi.'</h4>
-																</div>
-															</div>
-															<br>
-															<div class="row">
-																<div class="col-sm-12">
-																	<div class="progress">
-																		<div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="'.$persen.'" aria-valuemin="0" aria-valuemax="100" style="width:'.$persen.'%">'.$persen.'%
+																<br>
+																<div class="row">
+																	<div class="col-sm-12">
+																		<div class="progress">
+																			<div class="progress-bar '.$progress.'" role="progressbar" aria-valuenow="'.$persen.'" aria-valuemin="0" aria-valuemax="100" style="width:'.$persen.'%">'.$persen.'%
+																			</div>
 																		</div>
 																	</div>
 																</div>
-															</div>
 														</div>
 													</div>
-												</div>
 											';
 										echo '
 											  	<div class="col-sm-7">

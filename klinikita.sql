@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.5.1
--- http://www.phpmyadmin.net
+-- version 4.6.5.2
+-- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 12 Jul 2017 pada 09.41
--- Versi Server: 10.1.16-MariaDB
--- PHP Version: 5.5.38
+-- Generation Time: Jul 13, 2017 at 08:30 PM
+-- Server version: 10.1.21-MariaDB
+-- PHP Version: 5.6.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -23,7 +23,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `tb_detail_dmu`
+-- Table structure for table `tb_detail_dmu`
 --
 
 CREATE TABLE `tb_detail_dmu` (
@@ -34,7 +34,7 @@ CREATE TABLE `tb_detail_dmu` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
--- Dumping data untuk tabel `tb_detail_dmu`
+-- Dumping data for table `tb_detail_dmu`
 --
 
 INSERT INTO `tb_detail_dmu` (`id_detail_dmu`, `id_klinik`, `id_variabel`, `nilai_variabel`) VALUES
@@ -63,7 +63,7 @@ INSERT INTO `tb_detail_dmu` (`id_detail_dmu`, `id_klinik`, `id_variabel`, `nilai
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `tb_klinik`
+-- Table structure for table `tb_klinik`
 --
 
 CREATE TABLE `tb_klinik` (
@@ -73,18 +73,18 @@ CREATE TABLE `tb_klinik` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
--- Dumping data untuk tabel `tb_klinik`
+-- Dumping data for table `tb_klinik`
 --
 
 INSERT INTO `tb_klinik` (`id_klinik`, `cabang_klinik`, `alamat`) VALUES
-(1, 'Kalipancur', 'Jl. Abdulrahman Saleh'),
-(4, 'Kedungmundu', 'Jl. Kedungmundu Raya, Ruko Grahawahid No. 7'),
-(5, 'Tembalang', 'Jl. Banjarsari');
+(1, 'Banyumanik', 'Jl. Setiabudi No. 55'),
+(4, 'Kalipancur', 'Jl. Abdulrahman Saleh Kav. 783'),
+(5, 'Kedungmundu', 'Jl. Kedungmundu Raya, Ruko Grahawahid No. 7');
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `tb_pengguna`
+-- Table structure for table `tb_pengguna`
 --
 
 CREATE TABLE `tb_pengguna` (
@@ -97,7 +97,7 @@ CREATE TABLE `tb_pengguna` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin ROW_FORMAT=COMPACT;
 
 --
--- Dumping data untuk tabel `tb_pengguna`
+-- Dumping data for table `tb_pengguna`
 --
 
 INSERT INTO `tb_pengguna` (`id_pengguna`, `nama`, `username`, `password`, `id_klinik`, `level`) VALUES
@@ -107,12 +107,13 @@ INSERT INTO `tb_pengguna` (`id_pengguna`, `nama`, `username`, `password`, `id_kl
 (21, 'Anjar Giri Prayoo', 'manajer_kl', '993d81c33f4441beadb655551e0bc442', 1, 'm'),
 (22, 'Nadhira Luthfi Al Haddad', 'manajer_kd', '3f0bea4f56d4db15cdeb9cd0f04cbdeb', 4, 'm'),
 (23, 'dr. Maulana', 'manajer_pusat', '42836637e4afa63e6ba120974d7671dc', 0, 'p'),
-(24, 'tjg', 'tanjung', '21232f297a57a5a743894a0e4a801fc3', 5, 'c');
+(24, 'tanjung', 'tanjung', 'af4f12414b33733d816eb34afecf0db3', 5, 'c'),
+(25, 'Ananda Beniva', 'nanda', '859a37720c27b9f70e11b79bab9318fe', 5, 'm');
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `tb_perhitungan_efisiensi`
+-- Table structure for table `tb_perhitungan_efisiensi`
 --
 
 CREATE TABLE `tb_perhitungan_efisiensi` (
@@ -125,30 +126,30 @@ CREATE TABLE `tb_perhitungan_efisiensi` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
--- Dumping data untuk tabel `tb_perhitungan_efisiensi`
+-- Dumping data for table `tb_perhitungan_efisiensi`
 --
 
 INSERT INTO `tb_perhitungan_efisiensi` (`id_perhitungan_efisiensi`, `id_klinik`, `id_variabel`, `nilai_efisiensi`, `rekomendasi`, `nilai_awal`) VALUES
-(762, 1, 1, 0.85227272727273, 2, 3),
-(763, 1, 3, 0.85227272727273, 1, 5),
-(764, 1, 4, 0.85227272727273, 6, 6),
-(765, 1, 18, 0.85227272727273, 1, 2),
-(766, 1, 19, 0.85227272727273, 284, 360),
-(767, 4, 1, 1, 2, 2),
-(768, 4, 3, 1, 1, 1),
-(769, 4, 4, 1, 7, 7),
-(770, 4, 18, 1, 1, 1),
-(771, 4, 19, 1, 360, 360),
-(772, 5, 1, 1, 2, 2),
-(773, 5, 3, 1, 2, 2),
-(774, 5, 4, 1, 2, 2),
-(775, 5, 18, 1, 1, 1),
-(776, 5, 19, 1, 360, 360);
+(942, 1, 1, 0.85227272727273, 2, 3),
+(943, 1, 3, 0.85227272727273, 1, 5),
+(944, 1, 4, 0.85227272727273, 6, 6),
+(945, 1, 18, 0.85227272727273, 1, 2),
+(946, 1, 19, 0.85227272727273, 284, 360),
+(947, 4, 1, 1, 2, 2),
+(948, 4, 3, 1, 1, 1),
+(949, 4, 4, 1, 7, 7),
+(950, 4, 18, 1, 1, 1),
+(951, 4, 19, 1, 360, 360),
+(952, 5, 1, 1, 2, 2),
+(953, 5, 3, 1, 2, 2),
+(954, 5, 4, 1, 2, 2),
+(955, 5, 18, 1, 1, 1),
+(956, 5, 19, 1, 360, 360);
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `tb_variabel`
+-- Table structure for table `tb_variabel`
 --
 
 CREATE TABLE `tb_variabel` (
@@ -159,7 +160,7 @@ CREATE TABLE `tb_variabel` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
--- Dumping data untuk tabel `tb_variabel`
+-- Dumping data for table `tb_variabel`
 --
 
 INSERT INTO `tb_variabel` (`id_variabel`, `nama_variabel`, `jenis_variabel`, `satuan`) VALUES
@@ -213,7 +214,7 @@ ALTER TABLE `tb_variabel`
 -- AUTO_INCREMENT for table `tb_detail_dmu`
 --
 ALTER TABLE `tb_detail_dmu`
-  MODIFY `id_detail_dmu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=144;
+  MODIFY `id_detail_dmu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=130;
 --
 -- AUTO_INCREMENT for table `tb_klinik`
 --
@@ -223,17 +224,17 @@ ALTER TABLE `tb_klinik`
 -- AUTO_INCREMENT for table `tb_pengguna`
 --
 ALTER TABLE `tb_pengguna`
-  MODIFY `id_pengguna` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `id_pengguna` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 --
 -- AUTO_INCREMENT for table `tb_perhitungan_efisiensi`
 --
 ALTER TABLE `tb_perhitungan_efisiensi`
-  MODIFY `id_perhitungan_efisiensi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=777;
+  MODIFY `id_perhitungan_efisiensi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=957;
 --
 -- AUTO_INCREMENT for table `tb_variabel`
 --
 ALTER TABLE `tb_variabel`
-  MODIFY `id_variabel` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id_variabel` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

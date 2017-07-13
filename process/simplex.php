@@ -212,7 +212,7 @@
 	/*** End Of CCR Model ***/ 
 
 		$tabel_ccr = tabel_dual_simplex($fungsi_ccr_z, $fungsi_ccr_kendala, $n_var_input, $n_dmu);
-		$dual_simplex = dual_simplex($tabel_ccr, $n_dmu);
+		$dual_simplex = dual_simplex($tabel_ccr, $n_dmu); 
 		$rekomendasi = rekomendasi($dual_simplex, $n_dmu, $fungsi_ccr_z, $n_var_input);
 		# Query Insert Nilai Efisiensi BCC dan Rekomendasi CCR
 		# Jika Nilai Efisiensi BCC != 1 atau < 1
