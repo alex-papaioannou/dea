@@ -37,8 +37,22 @@
 					$query3 = mysqli_query($conn, $query3);
 					$data3 = mysqli_fetch_assoc($query3);
 					if ($data3['total'] > 0) {
-						// Jika salah satu data antara cabang atau alamatnya sudah terdaftar
-						header('Location: ../ubah_cabang.php?id='.$id.'&balasan=1');
+						// Jika hanya mengubah salah satu diantara nama cabang atau alamat cabang
+						// Dan tidak ada data yang diubah tidak duplikat terhadap data di db
+						$q = mysqli_query($conn, 'SELECT COUNT(*) AS total FROM tb_klinik WHERE LOWER(cabang_klinik)=LOWER("'.$cabang.'") AND LOWER(alamat)=LOWER("'.$alamat.'") AND id_klinik="'.$id.'"');
+						$d = mysqli_fetch_assoc($q);
+						if ($d['total'] == 0) {
+							// Data disimpan
+							$query = 'UPDATE tb_klinik SET cabang_klinik="'.$cabang.'", alamat="'.$alamat.'" WHERE id_klinik="'.$id.'"';
+							if (mysqli_query($conn, $query)) {
+								header('Location: ../mengelola_cabang.php?balasan=5');
+							} else {
+								header('Location: ../mengelola_cabang.php?balasan=6');
+							}
+						} else {
+							// Jika salah satu data antara cabang atau alamatnya sudah terdaftar
+							header('Location: ../ubah_cabang.php?id='.$id.'&balasan=1');
+						}
 					} else {
 						// Data belum terdaftar sama sekali
 						$query = 'UPDATE tb_klinik SET cabang_klinik="'.$cabang.'", alamat="'.$alamat.'" WHERE id_klinik="'.$id.'"';

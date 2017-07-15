@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 13, 2017 at 08:30 PM
+-- Generation Time: Jul 15, 2017 at 10:17 AM
 -- Server version: 10.1.21-MariaDB
 -- PHP Version: 5.6.30
 
@@ -104,11 +104,11 @@ INSERT INTO `tb_pengguna` (`id_pengguna`, `nama`, `username`, `password`, `id_kl
 (1, 'superadmin', 'superadmin', '17c4520f6cfd1ab53d8745e84681eb49', 0, 'a'),
 (10, 'Wahyu Putri', 'wahyu', '32c9e71e866ecdbc93e497482aa6779f', 1, 'c'),
 (11, 'Tiffany Marcelina', 'tiffany', '210dc1fd8cb4e4e43cb4961b28fac275', 4, 'c'),
-(21, 'Anjar Giri Prayoo', 'manajer_kl', '993d81c33f4441beadb655551e0bc442', 1, 'm'),
-(22, 'Nadhira Luthfi Al Haddad', 'manajer_kd', '3f0bea4f56d4db15cdeb9cd0f04cbdeb', 4, 'm'),
+(21, 'Anjar Giri Prayoo', 'manajer_banyumanik', '94b9bbcc75670d00c69cb6304acda8bd', 1, 'm'),
+(22, 'Nadhira Luthfi Al Haddad', 'manajer_kalipancur', '993d81c33f4441beadb655551e0bc442', 4, 'm'),
 (23, 'dr. Maulana', 'manajer_pusat', '42836637e4afa63e6ba120974d7671dc', 0, 'p'),
 (24, 'tanjung', 'tanjung', 'af4f12414b33733d816eb34afecf0db3', 5, 'c'),
-(25, 'Ananda Beniva', 'nanda', '859a37720c27b9f70e11b79bab9318fe', 5, 'm');
+(25, 'Ananda Beniva', 'manajer_kedungmundu', '3f0bea4f56d4db15cdeb9cd0f04cbdeb', 5, 'm');
 
 -- --------------------------------------------------------
 
