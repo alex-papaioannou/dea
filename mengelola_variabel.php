@@ -24,7 +24,7 @@
 
 									# Menampilkan Data Tabel
 									$i=1;
-									$query = mysqli_query($conn, "SELECT * FROM tb_variabel");
+									$query = mysqli_query($conn, "SELECT * FROM tb_variabel ORDER BY id_variabel DESC");
 									if (mysqli_num_rows($query) > 0) {
 										echo '
 											<table class="table table-bordered table-hover">
@@ -69,7 +69,7 @@
 										echo '
 											<div class="alert alert-dismissible alert-warning">
 		  										<button type="button" class="close" data-dismiss="alert">&times;</button>
-		  										<Strong>Data Masing Kosong</strong>. Silahkan Tambah Data Variabel.
+		  										<Strong>Data masih kosong</strong>. Silahkan tambah data variabel.
 											</div>
 										';
 									}

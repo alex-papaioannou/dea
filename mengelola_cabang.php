@@ -24,7 +24,7 @@
 
 						  			# Menampilkan Data Tabel
 									$i=1;
-									$query = mysqli_query($conn, "SELECT * FROM tb_klinik");
+									$query = mysqli_query($conn, "SELECT * FROM tb_klinik ORDER BY id_klinik DESC");
 									if (mysqli_num_rows($query) > 0) {
 										echo '
 										        <table class="table table-bordered table-hover">
@@ -58,7 +58,7 @@
 										echo '
 										  	<div class="alert alert-dismissible alert-warning">
   												<button type="button" class="close" data-dismiss="alert">&times;</button>
-  												<Strong>Data Masing Kosong</strong>. Silahkan Tambah Data Cabang.
+  												<Strong>Data masih kosong</strong>. Silahkan tambah data cabang.
 											</div>
 										';
 									}

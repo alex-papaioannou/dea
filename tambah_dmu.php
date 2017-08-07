@@ -2,12 +2,12 @@
 				<div class="col-sm-9">
 					<div class="panel panel-primary">
 						<div class="panel-heading">
-							<h3 class="panel-title"><span class="glyphicon glyphicon-tower"></span> Mengelola DMU</h3>
+							<h3 class="panel-title"><span class="glyphicon glyphicon-tower"></span> Mengelola Data DMU</h3>
 						</div>
 						<div class="panel-body">			
 							<form class="form-horizontal" method="post" action="process/t_dmu.php">
 								<fieldset>
-								    <legend>Tambah DMU</legend>
+								    <legend>Tambah Data DMU</legend>
 								    <?php
 								    	if (ISSET($_GET['balasan']) AND ($_GET['balasan']==1)) {
 						  			  	echo '<div class="alert alert-dismissible alert-danger"><button type="button" class="close" data-dismiss="alert">&times;</button><span class="glyphicon glyphicon-exclamation-sign"></span> <strong>DMU</strong> sudah terdaftar. Tidak bisa menambah data lagi</div>';

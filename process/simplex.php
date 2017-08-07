@@ -168,7 +168,7 @@
 				$id_var=$d4['id_variabel'];
 				if ($n_var <= $n_var_input) {
 					// Fungsi Z (Var Input)
-					$q5=mysqli_query($conn, 'SELECT d.nilai_variabel FROM tb_detail_dmu AS d, tb_variabel AS v WHERE d.id_variabel=v.id_variabel AND d.id_variabel="'.$id_var.'" AND v.jenis_variabel="i" ORDER BY d.id_variabel');
+					$q5=mysqli_query($conn, 'SELECT d.nilai_variabel FROM tb_detail_dmu AS d, tb_variabel AS v WHERE d.id_variabel=v.id_variabel AND d.id_variabel="'.$id_var.'" AND v.jenis_variabel="i" ORDER BY d.id_variabel, d.id_klinik');
 					if (mysqli_num_rows($q5) > 0) {
 						while ($d5=mysqli_fetch_assoc($q5)) {
 							if ($b > $n_dmu) {
@@ -181,7 +181,7 @@
 					}
 				} else {
 					// Fungsi Kendala (Var Output)
-					$q6=mysqli_query($conn, 'SELECT d.nilai_variabel FROM tb_detail_dmu AS d, tb_variabel AS v WHERE d.id_variabel=v.id_variabel AND d.id_variabel="'.$id_var.'" AND v.jenis_variabel="o" ORDER BY d.id_variabel');
+					$q6=mysqli_query($conn, 'SELECT d.nilai_variabel FROM tb_detail_dmu AS d, tb_variabel AS v WHERE d.id_variabel=v.id_variabel AND d.id_variabel="'.$id_var.'" AND v.jenis_variabel="o" ORDER BY d.id_variabel, d.id_klinik');
 					if (mysqli_num_rows($q6) > 0) {
 						while ($d6=mysqli_fetch_assoc($q6)) {
 							if ($d > $n_dmu) {
@@ -212,7 +212,7 @@
 	/*** End Of CCR Model ***/ 
 
 		$tabel_ccr = tabel_dual_simplex($fungsi_ccr_z, $fungsi_ccr_kendala, $n_var_input, $n_dmu);
-		$dual_simplex = dual_simplex($tabel_ccr, $n_dmu); 
+		$dual_simplex = dual_simplex($tabel_ccr, $n_dmu);
 		$rekomendasi = rekomendasi($dual_simplex, $n_dmu, $fungsi_ccr_z, $n_var_input);
 		# Query Insert Nilai Efisiensi BCC dan Rekomendasi CCR
 		# Jika Nilai Efisiensi BCC != 1 atau < 1
@@ -256,7 +256,7 @@
 		$n_kendala = count($fungsi_kendala);
 		# Note : Var $n_kendala adalahjumlah slack dan artificial var
 		# +1 pada var $n_kendala dimaksudkan untuk Var u0
-		$m = $m * 100;
+		
 		$cj = $fungsi_tujuan;
 		$cj['a1'] = -1 * $m;
 		for ($i=1; $i <= $n_kendala-1; $i++) { 
@@ -393,8 +393,7 @@
 			}
 		$iterasi = 1;
 		
-		for ($r=0; $r < 4; $r++) { 
-		//while ($terminasi == 1) {
+		while ($terminasi == 1) {
 		// Jika Kondisi Optimal Belum Tercapai
 		// Dengan Kata Lain Tidak Memenuhi Cj - Zj <= 0
 		// Lanjut Iterasi
@@ -800,5 +799,5 @@
 		return $rekomendasi;
 	}
 
-	header('Location: ../beranda.php');
+	header('Location: ../beranda.php?balasan=2');
 ?>

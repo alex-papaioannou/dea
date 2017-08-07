@@ -2,7 +2,7 @@
 				<div class="col-sm-9">
 					<div class="panel panel-primary">
 					  	<div class="panel-heading">
-					    	<h3 class="panel-title"><span class="glyphicon glyphicon-tower"></span> Mengelola DMU</h3>
+					    	<h3 class="panel-title"><span class="glyphicon glyphicon-tower"></span> Mengelola Data DMU</h3>
 					  	</div>
 					  	<div class="panel-body">
 						  	<div class="col-sm-12">
@@ -125,7 +125,7 @@
 										echo '
 											<div class="alert alert-dismissible alert-warning">
 		  										<button type="button" class="close" data-dismiss="alert">&times;</button>
-		  										<Strong>Data Masing Kosong</strong>. Silahkan Tambah Data DMU.
+		  										<Strong>Data masih kosong</strong>. Silahkan tambah data DMU.
 											</div>
 										';
 									}									

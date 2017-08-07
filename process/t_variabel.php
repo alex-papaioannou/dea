@@ -17,7 +17,7 @@
 		    	header('Location: ../tambah_variabel.php?balasan=1');
 			} else { // Jika == 0 artinya belum pernah terdaftar
 				
-				/* Begining of var-dmu validation */
+				/* Beginning of var-dmu validation */
 				// Jika terjadi penambahan var dimana dmu sudah pernah ditambahkan sebelum var baru itu ada
 				// Maka dilakukan insert value=0 pada var baru di semua dmu yg sudah ada dengan memastikan detail dmu tidak null
 				$q4 = "INSERT INTO tb_variabel (nama_variabel, jenis_variabel, satuan) VALUES ('$nama','$jenis','$satuan')";

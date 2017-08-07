@@ -3,6 +3,8 @@
 					<?php
 						if (ISSET($_GET['balasan']) AND ($_GET['balasan']==1)) {
 						  	echo '<div class="alert alert-dismissible alert-success"><button type="button" class="close" data-dismiss="alert">&times;</button><span class="glyphicon glyphicon-ok"></span> <strong>Profil</strong> berhasil diubah</div>';
+						} elseif (ISSET($_GET['balasan']) AND ($_GET['balasan']==2)) {
+							echo '<div class="alert alert-dismissible alert-success"><button type="button" class="close" data-dismiss="alert">&times;</button><span class="glyphicon glyphicon-ok"></span> Perhitungan efisiensi berhasil</div>';
 						}
 					?>
 					<div class="panel panel-primary">
@@ -120,7 +122,7 @@
 										  		<div class="col-sm-12">
 										  			<div class="alert alert-dismissible alert-warning">
   														<button type="button" class="close" data-dismiss="alert">&times;</button>
-  														<Strong>Belum Dilakukan Perhitungan Efisiensi</strong>. Silahkan Menghubungi Admin Cabang.
+  														Belum dilakukan perhitungan efisiensi.
 													</div>
 												</div>
 										';
@@ -214,7 +216,7 @@
 										  		<div class="col-sm-12">
 										  			<div class="alert alert-dismissible alert-warning">
   														<button type="button" class="close" data-dismiss="alert">&times;</button>
-  														<Strong>Belum Dilakukan Perhitungan Efisiensi</strong>. Silahkan Menghubungi Admin Cabang.
+  														Belum dilakukan perhitungan efisiensi.
 													</div>
 												</div>
 										';

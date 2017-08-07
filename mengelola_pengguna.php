@@ -46,10 +46,10 @@
 								$i=1;
 								if ($level == 'a') {
 									# Login sebagai Superadmin
-									$query = mysqli_query($conn, "SELECT * FROM tb_pengguna AS p, tb_klinik AS k WHERE p.id_klinik = k.id_klinik AND p.level = 'c' ORDER BY p.id_pengguna ASC");
+									$query = mysqli_query($conn, "SELECT * FROM tb_pengguna AS p, tb_klinik AS k WHERE p.id_klinik = k.id_klinik AND p.level = 'c' ORDER BY p.id_pengguna DESC");
 								} else {
 									# Login sebagai Admin Cabang
-									$query = mysqli_query($conn, 'SELECT * FROM tb_pengguna AS p, tb_klinik AS k WHERE p.id_klinik = k.id_klinik AND p.level = "m" AND p.id_klinik = "'.$cabang_klinik.'" ORDER BY p.id_pengguna ASC');
+									$query = mysqli_query($conn, 'SELECT * FROM tb_pengguna AS p, tb_klinik AS k WHERE p.id_klinik = k.id_klinik AND p.level = "m" AND p.id_klinik = "'.$cabang_klinik.'" ORDER BY p.id_pengguna DESC');
 								}
 											
 								if (mysqli_num_rows($query) > 0) {
@@ -90,7 +90,7 @@
 									echo '
 											<div class="alert alert-dismissible alert-warning">
 		  										<button type="button" class="close" data-dismiss="alert">&times;</button>
-		  										<Strong>Data Masing Kosong</strong>. Silahkan Tambah Data Pengguna.
+		  										<Strong>Data masih kosong</strong>. Silahkan tambah data pengguna.
 											</div>
 									';
 								} 

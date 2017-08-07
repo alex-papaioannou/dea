@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 15, 2017 at 10:17 AM
+-- Generation Time: Aug 07, 2017 at 02:42 PM
 -- Server version: 10.1.21-MariaDB
 -- PHP Version: 5.6.30
 
@@ -38,27 +38,27 @@ CREATE TABLE `tb_detail_dmu` (
 --
 
 INSERT INTO `tb_detail_dmu` (`id_detail_dmu`, `id_klinik`, `id_variabel`, `nilai_variabel`) VALUES
-(87, 1, 1, 3),
-(88, 1, 2, 45),
-(89, 1, 3, 5),
-(90, 1, 4, 6),
-(91, 1, 6, 296),
-(92, 1, 18, 2),
-(93, 1, 19, 360),
-(111, 4, 1, 2),
-(112, 4, 2, 57),
-(113, 4, 3, 1),
-(114, 4, 4, 7),
-(115, 4, 6, 497),
-(116, 4, 18, 1),
-(117, 4, 19, 360),
-(123, 5, 1, 2),
-(124, 5, 2, 36),
-(125, 5, 3, 2),
-(126, 5, 4, 2),
-(127, 5, 6, 345),
-(128, 5, 18, 1),
-(129, 5, 19, 360);
+(146, 3, 1, 2),
+(147, 3, 2, 36),
+(148, 3, 3, 2),
+(149, 3, 4, 2),
+(150, 3, 6, 345),
+(151, 3, 18, 1),
+(152, 3, 19, 360),
+(153, 1, 1, 3),
+(154, 1, 2, 45),
+(155, 1, 3, 5),
+(156, 1, 4, 6),
+(157, 1, 6, 296),
+(158, 1, 18, 2),
+(159, 1, 19, 360),
+(160, 2, 1, 2),
+(161, 2, 2, 57),
+(162, 2, 3, 1),
+(163, 2, 4, 7),
+(164, 2, 6, 497),
+(165, 2, 18, 1),
+(166, 2, 19, 360);
 
 -- --------------------------------------------------------
 
@@ -78,8 +78,8 @@ CREATE TABLE `tb_klinik` (
 
 INSERT INTO `tb_klinik` (`id_klinik`, `cabang_klinik`, `alamat`) VALUES
 (1, 'Banyumanik', 'Jl. Setiabudi No. 55'),
-(4, 'Kalipancur', 'Jl. Abdulrahman Saleh Kav. 783'),
-(5, 'Kedungmundu', 'Jl. Kedungmundu Raya, Ruko Grahawahid No. 7');
+(2, 'Kalipancur', 'Jl. Abdulrahman Saleh Kav. 783'),
+(3, 'Kedungmundu', 'Jl. Kedungmundu Raya, Ruko Grahawahid No. 7');
 
 -- --------------------------------------------------------
 
@@ -90,7 +90,7 @@ INSERT INTO `tb_klinik` (`id_klinik`, `cabang_klinik`, `alamat`) VALUES
 CREATE TABLE `tb_pengguna` (
   `id_pengguna` int(11) NOT NULL,
   `nama` varchar(50) COLLATE utf8_bin NOT NULL,
-  `username` varchar(50) COLLATE utf8_bin NOT NULL,
+  `username` varchar(20) COLLATE utf8_bin NOT NULL,
   `password` varchar(50) COLLATE utf8_bin NOT NULL,
   `id_klinik` int(11) NOT NULL,
   `level` char(1) COLLATE utf8_bin NOT NULL
@@ -102,13 +102,13 @@ CREATE TABLE `tb_pengguna` (
 
 INSERT INTO `tb_pengguna` (`id_pengguna`, `nama`, `username`, `password`, `id_klinik`, `level`) VALUES
 (1, 'superadmin', 'superadmin', '17c4520f6cfd1ab53d8745e84681eb49', 0, 'a'),
-(10, 'Wahyu Putri', 'wahyu', '32c9e71e866ecdbc93e497482aa6779f', 1, 'c'),
-(11, 'Tiffany Marcelina', 'tiffany', '210dc1fd8cb4e4e43cb4961b28fac275', 4, 'c'),
-(21, 'Anjar Giri Prayoo', 'manajer_banyumanik', '94b9bbcc75670d00c69cb6304acda8bd', 1, 'm'),
-(22, 'Nadhira Luthfi Al Haddad', 'manajer_kalipancur', '993d81c33f4441beadb655551e0bc442', 4, 'm'),
+(11, 'Tiffany', 'tiffany', '210dc1fd8cb4e4e43cb4961b28fac275', 2, 'c'),
+(22, 'Nadhira Luthfi Al Haddad', 'manajer_kalipancur', '993d81c33f4441beadb655551e0bc442', 2, 'm'),
 (23, 'dr. Maulana', 'manajer_pusat', '42836637e4afa63e6ba120974d7671dc', 0, 'p'),
-(24, 'tanjung', 'tanjung', 'af4f12414b33733d816eb34afecf0db3', 5, 'c'),
-(25, 'Ananda Beniva', 'manajer_kedungmundu', '3f0bea4f56d4db15cdeb9cd0f04cbdeb', 5, 'm');
+(24, 'Wahyu', 'wahyu', '32c9e71e866ecdbc93e497482aa6779f', 3, 'c'),
+(25, 'Ananda Beniva Ellian', 'manajer_kedungmundu', '3f0bea4f56d4db15cdeb9cd0f04cbdeb', 3, 'm'),
+(26, 'Murtiono', 'murtiono', '0c3028571f74c195c5098baa2ae8a972', 1, 'c'),
+(27, 'Diana Lavinia', 'manajer_banyumanik', '94b9bbcc75670d00c69cb6304acda8bd', 1, 'm');
 
 -- --------------------------------------------------------
 
@@ -130,21 +130,21 @@ CREATE TABLE `tb_perhitungan_efisiensi` (
 --
 
 INSERT INTO `tb_perhitungan_efisiensi` (`id_perhitungan_efisiensi`, `id_klinik`, `id_variabel`, `nilai_efisiensi`, `rekomendasi`, `nilai_awal`) VALUES
-(942, 1, 1, 0.85227272727273, 2, 3),
-(943, 1, 3, 0.85227272727273, 1, 5),
-(944, 1, 4, 0.85227272727273, 6, 6),
-(945, 1, 18, 0.85227272727273, 1, 2),
-(946, 1, 19, 0.85227272727273, 284, 360),
-(947, 4, 1, 1, 2, 2),
-(948, 4, 3, 1, 1, 1),
-(949, 4, 4, 1, 7, 7),
-(950, 4, 18, 1, 1, 1),
-(951, 4, 19, 1, 360, 360),
-(952, 5, 1, 1, 2, 2),
-(953, 5, 3, 1, 2, 2),
-(954, 5, 4, 1, 2, 2),
-(955, 5, 18, 1, 1, 1),
-(956, 5, 19, 1, 360, 360);
+(1322, 1, 1, 0.85227272727273, 2, 3),
+(1323, 1, 3, 0.85227272727273, 1, 5),
+(1324, 1, 4, 0.85227272727273, 6, 6),
+(1325, 1, 18, 0.85227272727273, 1, 2),
+(1326, 1, 19, 0.85227272727273, 284, 360),
+(1327, 2, 1, 1, 2, 2),
+(1328, 2, 3, 1, 1, 1),
+(1329, 2, 4, 1, 7, 7),
+(1330, 2, 18, 1, 1, 1),
+(1331, 2, 19, 1, 360, 360),
+(1332, 3, 1, 1, 2, 2),
+(1333, 3, 3, 1, 2, 2),
+(1334, 3, 4, 1, 2, 2),
+(1335, 3, 18, 1, 1, 1),
+(1336, 3, 19, 1, 360, 360);
 
 -- --------------------------------------------------------
 
@@ -214,22 +214,22 @@ ALTER TABLE `tb_variabel`
 -- AUTO_INCREMENT for table `tb_detail_dmu`
 --
 ALTER TABLE `tb_detail_dmu`
-  MODIFY `id_detail_dmu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=130;
+  MODIFY `id_detail_dmu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=167;
 --
 -- AUTO_INCREMENT for table `tb_klinik`
 --
 ALTER TABLE `tb_klinik`
-  MODIFY `id_klinik` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_klinik` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `tb_pengguna`
 --
 ALTER TABLE `tb_pengguna`
-  MODIFY `id_pengguna` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id_pengguna` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 --
 -- AUTO_INCREMENT for table `tb_perhitungan_efisiensi`
 --
 ALTER TABLE `tb_perhitungan_efisiensi`
-  MODIFY `id_perhitungan_efisiensi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=957;
+  MODIFY `id_perhitungan_efisiensi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1337;
 --
 -- AUTO_INCREMENT for table `tb_variabel`
 --

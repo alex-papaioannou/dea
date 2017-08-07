@@ -103,10 +103,10 @@
 							          			</ul>
 								            </li>
 								            <li>
-								            	<a data-toggle="collapse" data-parent="#stacked-menu" href="#p4"><span class="glyphicon glyphicon-tower"></span> Mengelola DMU <span class="caret arrow"></span></a>
+								            	<a data-toggle="collapse" data-parent="#stacked-menu" href="#p4"><span class="glyphicon glyphicon-tower"></span> Mengelola Data DMU <span class="caret arrow"></span></a>
 								            	<ul class="nav nav-pills nav-stacked collapse" id="p4">
-							            			<li><a href="tambah_dmu.php">Tambah DMU</a></li>
-										            <li><a href="mengelola_dmu.php">Daftar DMU</a></li>
+							            			<li><a href="tambah_dmu.php">Tambah Data DMU</a></li>
+										            <li><a href="mengelola_dmu.php">Daftar Data DMU</a></li>
 							          			</ul>
 								            </li>
 										';
