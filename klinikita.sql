@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 07, 2017 at 02:42 PM
+-- Generation Time: Aug 15, 2017 at 02:53 AM
 -- Server version: 10.1.21-MariaDB
 -- PHP Version: 5.6.30
 
@@ -84,6 +84,27 @@ INSERT INTO `tb_klinik` (`id_klinik`, `cabang_klinik`, `alamat`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `tb_manajer_pusat`
+--
+
+CREATE TABLE `tb_manajer_pusat` (
+  `id_manajer_pusat` int(11) NOT NULL,
+  `nama` varchar(50) COLLATE utf8_bin NOT NULL,
+  `username` varchar(20) COLLATE utf8_bin NOT NULL,
+  `password` varchar(50) COLLATE utf8_bin NOT NULL,
+  `level` char(1) COLLATE utf8_bin NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+--
+-- Dumping data for table `tb_manajer_pusat`
+--
+
+INSERT INTO `tb_manajer_pusat` (`id_manajer_pusat`, `nama`, `username`, `password`, `level`) VALUES
+(1, 'dr. Maulana', 'manajer_pusat', '42836637e4afa63e6ba120974d7671dc', 'p');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `tb_pengguna`
 --
 
@@ -101,10 +122,8 @@ CREATE TABLE `tb_pengguna` (
 --
 
 INSERT INTO `tb_pengguna` (`id_pengguna`, `nama`, `username`, `password`, `id_klinik`, `level`) VALUES
-(1, 'superadmin', 'superadmin', '17c4520f6cfd1ab53d8745e84681eb49', 0, 'a'),
 (11, 'Tiffany', 'tiffany', '210dc1fd8cb4e4e43cb4961b28fac275', 2, 'c'),
 (22, 'Nadhira Luthfi Al Haddad', 'manajer_kalipancur', '993d81c33f4441beadb655551e0bc442', 2, 'm'),
-(23, 'dr. Maulana', 'manajer_pusat', '42836637e4afa63e6ba120974d7671dc', 0, 'p'),
 (24, 'Wahyu', 'wahyu', '32c9e71e866ecdbc93e497482aa6779f', 3, 'c'),
 (25, 'Ananda Beniva Ellian', 'manajer_kedungmundu', '3f0bea4f56d4db15cdeb9cd0f04cbdeb', 3, 'm'),
 (26, 'Murtiono', 'murtiono', '0c3028571f74c195c5098baa2ae8a972', 1, 'c'),
@@ -130,21 +149,42 @@ CREATE TABLE `tb_perhitungan_efisiensi` (
 --
 
 INSERT INTO `tb_perhitungan_efisiensi` (`id_perhitungan_efisiensi`, `id_klinik`, `id_variabel`, `nilai_efisiensi`, `rekomendasi`, `nilai_awal`) VALUES
-(1322, 1, 1, 0.85227272727273, 2, 3),
-(1323, 1, 3, 0.85227272727273, 1, 5),
-(1324, 1, 4, 0.85227272727273, 6, 6),
-(1325, 1, 18, 0.85227272727273, 1, 2),
-(1326, 1, 19, 0.85227272727273, 284, 360),
-(1327, 2, 1, 1, 2, 2),
-(1328, 2, 3, 1, 1, 1),
-(1329, 2, 4, 1, 7, 7),
-(1330, 2, 18, 1, 1, 1),
-(1331, 2, 19, 1, 360, 360),
-(1332, 3, 1, 1, 2, 2),
-(1333, 3, 3, 1, 2, 2),
-(1334, 3, 4, 1, 2, 2),
-(1335, 3, 18, 1, 1, 1),
-(1336, 3, 19, 1, 360, 360);
+(1, 1, 1, 0.85227272727273, 2, 3),
+(2, 1, 3, 0.85227272727273, 1, 5),
+(3, 1, 4, 0.85227272727273, 6, 6),
+(4, 1, 18, 0.85227272727273, 1, 2),
+(5, 1, 19, 0.85227272727273, 284, 360),
+(6, 2, 1, 1, 2, 2),
+(7, 2, 3, 1, 1, 1),
+(8, 2, 4, 1, 7, 7),
+(9, 2, 18, 1, 1, 1),
+(10, 2, 19, 1, 360, 360),
+(11, 3, 1, 1, 2, 2),
+(12, 3, 3, 1, 2, 2),
+(13, 3, 4, 1, 2, 2),
+(14, 3, 18, 1, 1, 1),
+(15, 3, 19, 1, 360, 360);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tb_superadmin`
+--
+
+CREATE TABLE `tb_superadmin` (
+  `id_superadmin` int(11) NOT NULL,
+  `nama` varchar(50) COLLATE utf8_bin NOT NULL,
+  `username` varchar(20) COLLATE utf8_bin NOT NULL,
+  `password` varchar(50) COLLATE utf8_bin NOT NULL,
+  `level` char(1) COLLATE utf8_bin NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+--
+-- Dumping data for table `tb_superadmin`
+--
+
+INSERT INTO `tb_superadmin` (`id_superadmin`, `nama`, `username`, `password`, `level`) VALUES
+(1, 'superadmin', 'superadmin', '17c4520f6cfd1ab53d8745e84681eb49', 'a');
 
 -- --------------------------------------------------------
 
@@ -189,6 +229,12 @@ ALTER TABLE `tb_klinik`
   ADD PRIMARY KEY (`id_klinik`);
 
 --
+-- Indexes for table `tb_manajer_pusat`
+--
+ALTER TABLE `tb_manajer_pusat`
+  ADD PRIMARY KEY (`id_manajer_pusat`);
+
+--
 -- Indexes for table `tb_pengguna`
 --
 ALTER TABLE `tb_pengguna`
@@ -199,6 +245,12 @@ ALTER TABLE `tb_pengguna`
 --
 ALTER TABLE `tb_perhitungan_efisiensi`
   ADD PRIMARY KEY (`id_perhitungan_efisiensi`);
+
+--
+-- Indexes for table `tb_superadmin`
+--
+ALTER TABLE `tb_superadmin`
+  ADD PRIMARY KEY (`id_superadmin`);
 
 --
 -- Indexes for table `tb_variabel`
@@ -214,27 +266,37 @@ ALTER TABLE `tb_variabel`
 -- AUTO_INCREMENT for table `tb_detail_dmu`
 --
 ALTER TABLE `tb_detail_dmu`
-  MODIFY `id_detail_dmu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=167;
+  MODIFY `id_detail_dmu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=170;
 --
 -- AUTO_INCREMENT for table `tb_klinik`
 --
 ALTER TABLE `tb_klinik`
-  MODIFY `id_klinik` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_klinik` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+--
+-- AUTO_INCREMENT for table `tb_manajer_pusat`
+--
+ALTER TABLE `tb_manajer_pusat`
+  MODIFY `id_manajer_pusat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `tb_pengguna`
 --
 ALTER TABLE `tb_pengguna`
-  MODIFY `id_pengguna` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `id_pengguna` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 --
 -- AUTO_INCREMENT for table `tb_perhitungan_efisiensi`
 --
 ALTER TABLE `tb_perhitungan_efisiensi`
-  MODIFY `id_perhitungan_efisiensi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1337;
+  MODIFY `id_perhitungan_efisiensi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+--
+-- AUTO_INCREMENT for table `tb_superadmin`
+--
+ALTER TABLE `tb_superadmin`
+  MODIFY `id_superadmin` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `tb_variabel`
 --
 ALTER TABLE `tb_variabel`
-  MODIFY `id_variabel` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id_variabel` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

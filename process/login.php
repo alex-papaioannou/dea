@@ -6,6 +6,8 @@
 		$username = test_input($_POST['username']);
 		$password = md5($_POST['password']);
 		$query = mysqli_query($conn, "SELECT * FROM tb_pengguna WHERE username='".$username."' AND password='".$password."'");
+		$query2 = "SELECT * FROM tb_superadmin WHERE username='".$username."' AND password='".$password."'";
+		$query3 = "SELECT * FROM tb_manajer_pusat WHERE username='".$username."' AND password='".$password."'";
 		if(mysqli_num_rows($query) > 0){
 			// Username dan Password Benar
 			while($data = mysqli_fetch_assoc($query)){
@@ -19,11 +21,7 @@
 			$_SESSION['level'] = $level;
 			$_SESSION['id_klinik'] = $id_klinik;
 			// Klasifikasi Level Pengguna
-			if($level=='a'){ 
-				// Admin
-				$_SESSION['user'] = "Superadmin";
-				header("location: ../beranda.php");
-			}elseif ($level=='c'){ 
+			if ($level=='c'){ 
 				// Admin Cabang
 				$_SESSION['user'] = "Admin Cabang";
 				header("location: ../beranda.php");
@@ -31,10 +29,36 @@
 				// Manajer Cabang
 				$_SESSION['user'] = "Manajer Cabang";
 				header("location: ../beranda.php");
-			} else {
-				// Manajer Pusat
-				$_SESSION['user'] = "Manajer Pusat";
+			}
+		} elseif (mysqli_query($conn, $query2)) {
+			$query2 = mysqli_query($conn, $query2);
+			if (mysqli_num_rows($query2) > 0) {
+				// Username dan Password Benar
+				$data = mysqli_fetch_assoc($query2);
+				$level = $data['level'];
+				$id = $data['id_superadmin'];
+				$_SESSION['username'] = $username;
+				$_SESSION['password'] = $password;
+				$_SESSION['id'] = $id;
+				$_SESSION['level'] = $level;
+				// Admin
+				$_SESSION['user'] = "Superadmin";
 				header("location: ../beranda.php");
+			} elseif (mysqli_query($conn, $query3)) {
+				$query3 = mysqli_query($conn, $query3);
+				if (mysqli_num_rows($query3) > 0) {
+					// Username dan Password Benar
+					$data = mysqli_fetch_assoc($query3);
+					$level = $data['level'];
+					$id = $data['id_manajer_pusat'];
+					$_SESSION['username'] = $username;
+					$_SESSION['password'] = $password;
+					$_SESSION['id'] = $id;
+					$_SESSION['level'] = $level;
+					// Manajer Pusat
+					$_SESSION['user'] = "Manajer Pusat";
+					header("location: ../beranda.php");
+				}
 			}
 		} else {
 			// Username dan atau Password Salah

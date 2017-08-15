@@ -8,8 +8,18 @@
 	} 
 	if (ISSET($_GET['lvl'])) {
 		$lvl = $_GET['lvl'];
-		if (($lvl == 'a') OR ($lvl == 'p')) { # Jika ingin mengubah profil
-			$query = mysqli_query($conn, 'SELECT * FROM tb_pengguna WHERE id_pengguna="'.$id.'"');
+		if ($lvl == 'a') { 
+			# Jika ingin mengubah profil
+			$query = mysqli_query($conn, 'SELECT * FROM tb_superadmin WHERE id_superadmin="'.$id.'"');
+			if (mysqli_num_rows($query) > 0) {
+				while ($data = mysqli_fetch_assoc($query)) {
+					$nama = $data['nama'];
+					$username = $data['username'];
+				}
+			}
+		} elseif ($lvl == 'p') {
+			# Jika ingin mengubah profil
+			$query = mysqli_query($conn, 'SELECT * FROM tb_manajer_pusat WHERE id_manajer_pusat="'.$id.'"');
 			if (mysqli_num_rows($query) > 0) {
 				while ($data = mysqli_fetch_assoc($query)) {
 					$nama = $data['nama'];
