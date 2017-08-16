@@ -1,7 +1,7 @@
 <?php 
 	include 'layout.php'; 
 	$id = $_GET['id'];
-	$query = mysqli_query($conn, 'SELECT * FROM tb_variabel WHERE id_variabel='.$id.'');
+	$query = mysqli_query($conn, 'SELECT * FROM variabel WHERE id_variabel='.$id.'');
 	if (mysqli_num_rows($query) > 0) {
 		while($var = mysqli_fetch_assoc($query)) {
 			$nama = $var['nama_variabel'];

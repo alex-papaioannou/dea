@@ -7,15 +7,18 @@
 		$password = md5(trim($_POST['password']));
 		if (ISSET($_GET['lvl'])) {
 			$lvl = $_GET['lvl'];
-			if ($lvl == 'a') {
-				$id_klinik = 0;
+			if (($lvl == 'a') OR ($lvl == 'p')) {
+				$tabel = 'pengguna_khusus';
+				$id_kolom = 'id_pengguna_khusus';
 			} else {
-				$id_klinik = $_POST['cabang_klinik'];
+				$tabel = 'pengguna';
+				$id_kolom = 'id_pengguna';
 			}
+			$id_klinik = $_POST['cabang_klinik'];
 		}
 		
 		// Mengecek apakah data sudah pernah terdaftar
-		$query = 'SELECT COUNT(username) AS total FROM tb_pengguna WHERE LOWER(username)=LOWER("'.$username.'")';
+		$query = 'SELECT COUNT(username) AS total FROM '.$tabel.' WHERE LOWER(username)=LOWER("'.$username.'")';
 		if (mysqli_query($conn, $query)) {
 			$query = mysqli_query($conn, $query);
 			$data = mysqli_fetch_assoc($query);
@@ -23,16 +26,16 @@
 			if ($data['total'] > 0) {
 				// Ditemukan bahwa data telah terdaftar
 				// Tapi dalam kondisi khusus jika batal ubah (data belum disentuh) tapi tetap klik simpan
-				$query = 'SELECT COUNT(*) AS total FROM tb_pengguna WHERE LOWER(username)=LOWER("'.$username.'") AND id_pengguna="'.$id.'"';
+				$query = 'SELECT COUNT(*) AS total FROM '.$tabel.' WHERE LOWER(username)=LOWER("'.$username.'") AND '.$id_kolom.'="'.$id.'"';
 				$query = mysqli_query($conn, $query);
 				$d = mysqli_fetch_assoc($query);
 				if ($d['total'] > 0) {
 					// Mengecek jika username tidak berubah, tp atribut lain berubah
-					$query = 'SELECT COUNT(*) AS total FROM tb_pengguna WHERE LOWER(username)=LOWER("'.$username.'") AND id_pengguna="'.$id.'" AND password="'.$password.'" AND id_klinik="'.$id_klinik.'"';
+					$query = 'SELECT COUNT(*) AS total FROM '.$tabel.' WHERE LOWER(username)=LOWER("'.$username.'") AND '.$id_kolom.'="'.$id.'" AND password="'.$password.'" AND id_klinik="'.$id_klinik.'"';
 					$query = mysqli_query($conn, $query);
 					$data = mysqli_fetch_assoc($query);
 					if ($data['total'] == 0) {
-						$query = 'UPDATE tb_pengguna SET nama="'.$nama.'", password="'.$password.'" WHERE id_pengguna="'.$id.'"';
+						$query = 'UPDATE '.$tabel.' SET nama="'.$nama.'", password="'.$password.'" WHERE '.$id_kolom.'="'.$id.'"';
 						if (mysqli_query($conn, $query)) {
 							if ($type == 'profile') {
 								header('Location: ../beranda.php?balasan=1');
@@ -63,7 +66,7 @@
 					}
 				}
 			} elseif ($data['total'] == 0) { // Jika == 0 artinya belum pernah terdaftar
-				$query = 'UPDATE tb_pengguna SET nama="'.$nama.'", password="'.$password.'" WHERE id_pengguna="'.$id.'"';
+				$query = 'UPDATE '.$tabel.' SET nama="'.$nama.'", password="'.$password.'" WHERE '.$id_kolom.'="'.$id.'"';
 				if (mysqli_query($conn, $query)) {
 				    if ($type == 'profile') {
 						header('Location: ../beranda.php?balasan=1');

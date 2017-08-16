@@ -17,7 +17,7 @@
 								        	<select name="id_klinik" class="form-control" required disabled>
 								        		<option value=""> -- Pilih Cabang -- </option>
 								        		<?php
-								        			$query = mysqli_query($conn, "SELECT k.cabang_klinik, d.id_klinik FROM tb_klinik AS k, tb_detail_dmu AS d WHERE k.id_klinik=d.id_klinik GROUP BY id_klinik");
+								        			$query = mysqli_query($conn, "SELECT k.cabang_klinik, d.id_klinik FROM klinik AS k, detail_dmu AS d WHERE k.id_klinik=d.id_klinik GROUP BY id_klinik");
 								        			if (mysqli_num_rows($query) > 0) {
 													    // output data of each row
 													    while($cabang = mysqli_fetch_assoc($query)) {
@@ -36,7 +36,7 @@
 								    <?php
 								    	$input = 0;
 								    	$output = 0;
-										$query = mysqli_query($conn, 'SELECT * FROM tb_variabel v, tb_detail_dmu d WHERE v.id_variabel=d.id_variabel AND d.id_klinik='.$id.' ORDER BY v.jenis_variabel ASC, v.id_variabel ASC');
+										$query = mysqli_query($conn, 'SELECT * FROM variabel v, detail_dmu d WHERE v.id_variabel=d.id_variabel AND d.id_klinik='.$id.' ORDER BY v.jenis_variabel ASC, v.id_variabel ASC');
 										while($var = mysqli_fetch_assoc($query)){
 											$name =	 str_replace(' ','_',$var['nama_variabel']);
 											$satuan = $var['satuan'];

@@ -2,11 +2,11 @@
 	session_start();
 	include "connect_db.php";
 	# Menghapus Semua Data Pada DB Tabel Perhitungan Efisiensi
-	$q = mysqli_query($conn, 'DELETE FROM tb_perhitungan_efisiensi');
+	$q = mysqli_query($conn, 'DELETE FROM perhitungan_efisiensi');
 	
 	// Mendapatkan semua id klinik
 	$index_dmu = 0;
-	$q = mysqli_query($conn, 'SELECT id_klinik FROM tb_detail_dmu GROUP BY id_klinik ORDER BY id_klinik');
+	$q = mysqli_query($conn, 'SELECT id_klinik FROM detail_dmu GROUP BY id_klinik ORDER BY id_klinik');
 	if (mysqli_num_rows($q) > 0) {
 		while ($data = mysqli_fetch_assoc($q)) {
 			$id_dmu_klinik[$index_dmu] = $data['id_klinik'];
@@ -19,7 +19,7 @@
 
 	// Mendapatkan Semua ID Variabel Terurut Berdasarkan Jenis Var dan ID
 	$id_variabel = array();
-	$q = mysqli_query($conn, 'SELECT d.id_variabel FROM tb_detail_dmu AS d, tb_variabel AS v WHERE d.id_variabel=v.id_variabel GROUP BY d.id_variabel ORDER BY v.jenis_variabel, v.id_variabel ASC');
+	$q = mysqli_query($conn, 'SELECT d.id_variabel FROM detail_dmu AS d, variabel AS v WHERE d.id_variabel=v.id_variabel GROUP BY d.id_variabel ORDER BY v.jenis_variabel, v.id_variabel ASC');
 	if (mysqli_num_rows($q) > 0) {
 		$i = 0;
 		while ($data = mysqli_fetch_assoc($q)) {
@@ -30,13 +30,13 @@
 
 	// Menghitung banyak var output
 	$n_var_output = 0;
-	$q = mysqli_query($conn, 'SELECT COUNT(*) as total FROM tb_variabel WHERE jenis_variabel="o"');
+	$q = mysqli_query($conn, 'SELECT COUNT(*) as total FROM variabel WHERE jenis_variabel="o"');
 	$d = mysqli_fetch_assoc($q);
 	$n_var_output = $d['total'];
 
 	// Menghitung banyak var input
 	$n_var_input = 0;
-	$q = mysqli_query($conn, 'SELECT COUNT(*) as total FROM tb_variabel WHERE jenis_variabel="i"');
+	$q = mysqli_query($conn, 'SELECT COUNT(*) as total FROM variabel WHERE jenis_variabel="i"');
 	$d = mysqli_fetch_assoc($q);
 	$n_var_input = $d['total'];
 
@@ -44,7 +44,7 @@
 	for ($y=0; $y < $n_dmu; $y++) {
 	/*** BCC Model ***/ 
 		// Mengubah var output menjadi fungsi tujuan
-		$q = mysqli_query($conn, 'SELECT * FROM tb_detail_dmu d, tb_variabel v WHERE v.id_variabel = d.id_variabel AND d.id_klinik="'.$id_dmu_klinik[$index_dmu].'" ORDER BY d.id_klinik, v.jenis_variabel ASC, v.id_variabel');
+		$q = mysqli_query($conn, 'SELECT * FROM detail_dmu d, variabel v WHERE v.id_variabel = d.id_variabel AND d.id_klinik="'.$id_dmu_klinik[$index_dmu].'" ORDER BY d.id_klinik, v.jenis_variabel ASC, v.id_variabel');
 		$index_output = $index_input = 1;
 		$fungsi_tujuan = array();
 		if (mysqli_num_rows($q) > 0) {
@@ -63,7 +63,7 @@
 		}
 
 		// Mengubah var input menjadi fungsi kendala = 1
-		$q2 = mysqli_query($conn, 'SELECT * FROM tb_detail_dmu d, tb_variabel v WHERE v.id_variabel = d.id_variabel AND d.id_klinik="'.$id_dmu_klinik[$index_dmu].'" AND v.jenis_variabel="i" ORDER BY v.id_variabel');
+		$q2 = mysqli_query($conn, 'SELECT * FROM detail_dmu d, variabel v WHERE v.id_variabel = d.id_variabel AND d.id_klinik="'.$id_dmu_klinik[$index_dmu].'" AND v.jenis_variabel="i" ORDER BY v.id_variabel');
 		$index_input = 1;
 		$index_kendala = 0;
 		// Fungsi kendala final
@@ -102,7 +102,7 @@
 		// Mengubah var input dan output menjadi fungsi kendal <= 0
 		$index_slack_var = 1;
 		$m = 0;
-		$q3 = mysqli_query($conn, 'SELECT * FROM tb_detail_dmu d, tb_variabel v WHERE v.id_variabel = d.id_variabel ORDER BY d.id_klinik, v.jenis_variabel DESC, v.id_variabel');
+		$q3 = mysqli_query($conn, 'SELECT * FROM detail_dmu d, variabel v WHERE v.id_variabel = d.id_variabel ORDER BY d.id_klinik, v.jenis_variabel DESC, v.id_variabel');
 		if (mysqli_num_rows($q3) > 0) {
 			while($d3 = mysqli_fetch_assoc($q3)){
 				// Mencari nilai max data untuk var M
@@ -158,7 +158,7 @@
 	/*** End Of BCC Model ***/ 
 
 	/*** CCR Model ***/ 
-		$q4=mysqli_query($conn, 'SELECT d.id_variabel FROM tb_detail_dmu AS d, tb_variabel AS v WHERE d.id_variabel=v.id_variabel GROUP BY d.id_variabel ORDER BY v.jenis_variabel, v.id_variabel');
+		$q4=mysqli_query($conn, 'SELECT d.id_variabel FROM detail_dmu AS d, variabel AS v WHERE d.id_variabel=v.id_variabel GROUP BY d.id_variabel ORDER BY v.jenis_variabel, v.id_variabel');
 		if (mysqli_num_rows($q4)>0) {
 			$a=0; $c=0;
 			$b=1; $d=1;
@@ -168,7 +168,7 @@
 				$id_var=$d4['id_variabel'];
 				if ($n_var <= $n_var_input) {
 					// Fungsi Z (Var Input)
-					$q5=mysqli_query($conn, 'SELECT d.nilai_variabel FROM tb_detail_dmu AS d, tb_variabel AS v WHERE d.id_variabel=v.id_variabel AND d.id_variabel="'.$id_var.'" AND v.jenis_variabel="i" ORDER BY d.id_variabel, d.id_klinik');
+					$q5=mysqli_query($conn, 'SELECT d.nilai_variabel FROM detail_dmu AS d, variabel AS v WHERE d.id_variabel=v.id_variabel AND d.id_variabel="'.$id_var.'" AND v.jenis_variabel="i" ORDER BY d.id_variabel, d.id_klinik');
 					if (mysqli_num_rows($q5) > 0) {
 						while ($d5=mysqli_fetch_assoc($q5)) {
 							if ($b > $n_dmu) {
@@ -181,7 +181,7 @@
 					}
 				} else {
 					// Fungsi Kendala (Var Output)
-					$q6=mysqli_query($conn, 'SELECT d.nilai_variabel FROM tb_detail_dmu AS d, tb_variabel AS v WHERE d.id_variabel=v.id_variabel AND d.id_variabel="'.$id_var.'" AND v.jenis_variabel="o" ORDER BY d.id_variabel, d.id_klinik');
+					$q6=mysqli_query($conn, 'SELECT d.nilai_variabel FROM detail_dmu AS d, variabel AS v WHERE d.id_variabel=v.id_variabel AND d.id_variabel="'.$id_var.'" AND v.jenis_variabel="o" ORDER BY d.id_variabel, d.id_klinik');
 					if (mysqli_num_rows($q6) > 0) {
 						while ($d6=mysqli_fetch_assoc($q6)) {
 							if ($d > $n_dmu) {
@@ -219,7 +219,7 @@
 		# Berikan Rekomendasi CCR
 			# Mendapatkan Nilai Awal
 			$nilai_awal = array();
-			$q = mysqli_query($conn, 'SELECT * FROM tb_detail_dmu AS d, tb_variabel AS v WHERE d.id_variabel=v.id_variabel AND v.jenis_variabel="i" AND id_klinik="'.$id_dmu_klinik[$index_dmu].'" ORDER BY v.jenis_variabel, d.id_variabel');
+			$q = mysqli_query($conn, 'SELECT * FROM detail_dmu AS d, variabel AS v WHERE d.id_variabel=v.id_variabel AND v.jenis_variabel="i" AND id_klinik="'.$id_dmu_klinik[$index_dmu].'" ORDER BY v.jenis_variabel, d.id_variabel');
 			if (mysqli_num_rows($q) > 0) {
 				$o = 0;
 				while ($n_awal = mysqli_fetch_assoc($q)) {
@@ -234,9 +234,9 @@
 				$ii = $i - 1; 
 				# Menyimpan Nilai Efisiensi dan Rekomendasi Ke DB
 				if ($bigm == 1) {
-					$query_insert = mysqli_query($conn, "INSERT INTO tb_perhitungan_efisiensi (id_klinik, id_variabel, nilai_efisiensi, nilai_awal, rekomendasi) VALUES ('$id_dmu_klinik[$index_dmu]','$id_variabel[$ii]','$bigm','$nilai_awal[$ii]','$nilai_awal[$ii]')");
+					$query_insert = mysqli_query($conn, "INSERT INTO perhitungan_efisiensi (id_klinik, id_variabel, nilai_efisiensi, nilai_awal, rekomendasi) VALUES ('$id_dmu_klinik[$index_dmu]','$id_variabel[$ii]','$bigm','$nilai_awal[$ii]','$nilai_awal[$ii]')");
 				} else {
-					$query_insert = mysqli_query($conn, "INSERT INTO tb_perhitungan_efisiensi (id_klinik, id_variabel, nilai_efisiensi, nilai_awal, rekomendasi) VALUES ('$id_dmu_klinik[$index_dmu]','$id_variabel[$ii]','$bigm','$nilai_awal[$ii]','$nilai_rekomendasi')");
+					$query_insert = mysqli_query($conn, "INSERT INTO perhitungan_efisiensi (id_klinik, id_variabel, nilai_efisiensi, nilai_awal, rekomendasi) VALUES ('$id_dmu_klinik[$index_dmu]','$id_variabel[$ii]','$bigm','$nilai_awal[$ii]','$nilai_rekomendasi')");
 				}
 			}
 		$index_dmu_ccr++;

@@ -8,18 +8,9 @@
 	} 
 	if (ISSET($_GET['lvl'])) {
 		$lvl = $_GET['lvl'];
-		if ($lvl == 'a') { 
+		if (($lvl == 'a') OR ($lvl == 'p')) { 
 			# Jika ingin mengubah profil
-			$query = mysqli_query($conn, 'SELECT * FROM tb_superadmin WHERE id_superadmin="'.$id.'"');
-			if (mysqli_num_rows($query) > 0) {
-				while ($data = mysqli_fetch_assoc($query)) {
-					$nama = $data['nama'];
-					$username = $data['username'];
-				}
-			}
-		} elseif ($lvl == 'p') {
-			# Jika ingin mengubah profil
-			$query = mysqli_query($conn, 'SELECT * FROM tb_manajer_pusat WHERE id_manajer_pusat="'.$id.'"');
+			$query = mysqli_query($conn, 'SELECT * FROM pengguna_khusus WHERE id_pengguna_khusus="'.$id.'"');
 			if (mysqli_num_rows($query) > 0) {
 				while ($data = mysqli_fetch_assoc($query)) {
 					$nama = $data['nama'];
@@ -27,7 +18,7 @@
 				}
 			}
 		} else {
-			$query = mysqli_query($conn, 'SELECT * FROM tb_pengguna AS p, tb_klinik AS k WHERE p.id_klinik = k.id_klinik AND p.id_pengguna="'.$id.'"');
+			$query = mysqli_query($conn, 'SELECT * FROM pengguna AS p, klinik AS k WHERE p.id_klinik = k.id_klinik AND p.id_pengguna="'.$id.'"');
 			if (mysqli_num_rows($query) > 0) {
 				$pengguna = mysqli_fetch_assoc($query);
 				$nama = $pengguna['nama'];
@@ -38,7 +29,7 @@
 			}
 		}
 	} else { # Jika yang login Superadmin -> mengelola Admin Cabang atau Admin Cabang -> mengelola Manajer Cabang
-		$query = mysqli_query($conn, 'SELECT * FROM tb_pengguna AS p, tb_klinik AS k WHERE p.id_klinik = k.id_klinik AND p.id_pengguna="'.$id.'"');
+		$query = mysqli_query($conn, 'SELECT * FROM pengguna AS p, klinik AS k WHERE p.id_klinik = k.id_klinik AND p.id_pengguna="'.$id.'"');
 		if (mysqli_num_rows($query) > 0) {
 			$pengguna = mysqli_fetch_assoc($query);
 			$nama = $pengguna['nama'];
@@ -123,7 +114,7 @@
 								        	<select name="cabang_klinik" class="form-control" disabled required>
 								        		<option value=""> -- Pilih Cabang -- </option>
 								        		<?php
-								        			$query = mysqli_query($conn, "SELECT * FROM tb_klinik");
+								        			$query = mysqli_query($conn, "SELECT * FROM klinik");
 								        			if (mysqli_num_rows($query) > 0) {
 													    while($cabang = mysqli_fetch_assoc($query)) {
 													    	$id_cabang = $cabang['id_klinik'];

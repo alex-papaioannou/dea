@@ -31,7 +31,7 @@
 									echo '<div class="row">';
 									# Menghitung Banyak DMU
 									$id_dmu = $cabang_klinik = $efisiensi = array();
-									$q = mysqli_query($conn, 'SELECT p.id_klinik, k.cabang_klinik, p.nilai_efisiensi FROM tb_perhitungan_efisiensi AS p, tb_klinik AS k WHERE p.id_klinik=k.id_klinik GROUP BY p.id_klinik');
+									$q = mysqli_query($conn, 'SELECT p.id_klinik, k.cabang_klinik, p.nilai_efisiensi FROM perhitungan_efisiensi AS p, klinik AS k WHERE p.id_klinik=k.id_klinik GROUP BY p.id_klinik');
 									$n_dmu = mysqli_num_rows($q);
 									if ($n_dmu > 0) {
 										$index = 0;
@@ -88,7 +88,7 @@
 															</thead>
 															<tbody>
 											';
-											$q = mysqli_query($conn, 'SELECT * FROM tb_perhitungan_efisiensi AS p, tb_variabel AS v, tb_klinik AS k WHERE p.id_variabel=v.id_variabel AND k.id_klinik=p.id_klinik AND p.id_klinik="'.$id_dmu[$i].'" ORDER BY v.id_variabel ASC');
+											$q = mysqli_query($conn, 'SELECT * FROM perhitungan_efisiensi AS p, variabel AS v, klinik AS k WHERE p.id_variabel=v.id_variabel AND k.id_klinik=p.id_klinik AND p.id_klinik="'.$id_dmu[$i].'" ORDER BY v.id_variabel ASC');
 											if (mysqli_num_rows($q) > 0) {
 											  	$j = 1;
 											  	while ($data = mysqli_fetch_assoc($q)) {
@@ -132,7 +132,7 @@
 									echo '<div class="row">';
 									# Menghitung Banyak DMU
 									$id_klinik = $_SESSION["id_klinik"];
-									$q = mysqli_query($conn, 'SELECT p.id_klinik, k.cabang_klinik, p.nilai_efisiensi FROM tb_perhitungan_efisiensi AS p, tb_klinik AS k WHERE p.id_klinik=k.id_klinik AND p.id_klinik="'.$id_klinik.'" GROUP BY p.id_klinik');
+									$q = mysqli_query($conn, 'SELECT p.id_klinik, k.cabang_klinik, p.nilai_efisiensi FROM perhitungan_efisiensi AS p, klinik AS k WHERE p.id_klinik=k.id_klinik AND p.id_klinik="'.$id_klinik.'" GROUP BY p.id_klinik');
 									if (mysqli_num_rows($q) > 0) {
 										$d = mysqli_fetch_assoc($q);
 										$cabang_klinik = $d['cabang_klinik'];
@@ -183,7 +183,7 @@
 														</thead>
 													<tbody>
 										';
-										$q = mysqli_query($conn, 'SELECT * FROM tb_perhitungan_efisiensi AS p, tb_variabel AS v, tb_klinik AS k WHERE p.id_variabel=v.id_variabel AND k.id_klinik=p.id_klinik AND p.id_klinik="'.$id_klinik.'" ORDER BY p.id_variabel ASC');
+										$q = mysqli_query($conn, 'SELECT * FROM perhitungan_efisiensi AS p, variabel AS v, klinik AS k WHERE p.id_variabel=v.id_variabel AND k.id_klinik=p.id_klinik AND p.id_klinik="'.$id_klinik.'" ORDER BY p.id_variabel ASC');
 										if (mysqli_num_rows($q) > 0) {
 											$j = 1;
 											while ($data = mysqli_fetch_assoc($q)) {

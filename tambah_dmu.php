@@ -19,10 +19,10 @@
 								        	<select name="id_klinik" class="form-control" disabled required>
 								        		<option value=""> -- Pilih Cabang -- </option>
 								        		<?php
-								        			$query = mysqli_query($conn, 'SELECT * FROM tb_pengguna WHERE id_pengguna="'.$id.'"');
+								        			$query = mysqli_query($conn, 'SELECT * FROM pengguna WHERE id_pengguna="'.$id.'"');
 								        			$data_user = mysqli_fetch_assoc($query);
 								        			$user = $data_user['id_klinik'];
-								        			$query = mysqli_query($conn, 'SELECT * FROM tb_klinik');
+								        			$query = mysqli_query($conn, 'SELECT * FROM klinik');
 								        			if (mysqli_num_rows($query) > 0) {
 													    // output data of each row
 													    while($cabang = mysqli_fetch_assoc($query)) {
@@ -41,7 +41,7 @@
 								    <?php
 								    	$input = 0;
 								    	$output = 0;
-										$query = mysqli_query($conn, "SELECT * FROM tb_variabel ORDER BY jenis_variabel ASC, id_variabel ASC");
+										$query = mysqli_query($conn, "SELECT * FROM variabel ORDER BY jenis_variabel ASC, id_variabel ASC");
 										if (mysqli_num_rows($query) > 0) {
 											while ($var = mysqli_fetch_assoc($query)) {
 												$name = str_replace(' ','_',$var['nama_variabel']);

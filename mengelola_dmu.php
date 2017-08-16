@@ -23,7 +23,7 @@
 						  			}
 						  			
 						  			// Menghitung jumlah var input dan output
-									$query = mysqli_query($conn, "SELECT * FROM tb_variabel ORDER BY jenis_variabel ASC, id_variabel ASC");
+									$query = mysqli_query($conn, "SELECT * FROM variabel ORDER BY jenis_variabel ASC, id_variabel ASC");
 									$list_var = '';
 									$input = 0;
 									$output = 0;
@@ -41,7 +41,7 @@
 
 									# Menampilkan Data Tabel
 									$i = 1;
-									$query = mysqli_query($conn, 'SELECT k.cabang_klinik, d.id_klinik FROM tb_klinik AS k, tb_detail_dmu AS d WHERE k.id_klinik=d.id_klinik AND d.id_klinik="'.$_SESSION['id_klinik'].'" GROUP BY id_klinik ORDER BY id_detail_dmu');
+									$query = mysqli_query($conn, 'SELECT k.cabang_klinik, d.id_klinik FROM klinik AS k, detail_dmu AS d WHERE k.id_klinik=d.id_klinik AND d.id_klinik="'.$_SESSION['id_klinik'].'" GROUP BY id_klinik ORDER BY id_detail_dmu');
 									if (mysqli_num_rows($query) > 0) {
 										echo '
 											<table class="table table-bordered table-hover table-responsive">
@@ -68,7 +68,7 @@
 											$id_klinik = $cabang['id_klinik'];
 
 											// Variabel Input
-											$query_input = mysqli_query($conn, 'SELECT d.nilai_variabel FROM tb_detail_dmu AS d, tb_variabel AS v WHERE d.id_variabel=v.id_variabel AND id_klinik='.$id_klinik.' AND v.jenis_variabel="i" ORDER BY v.jenis_variabel ASC, d.id_variabel');
+											$query_input = mysqli_query($conn, 'SELECT d.nilai_variabel FROM detail_dmu AS d, variabel AS v WHERE d.id_variabel=v.id_variabel AND id_klinik='.$id_klinik.' AND v.jenis_variabel="i" ORDER BY v.jenis_variabel ASC, d.id_variabel');
 											$count = 0;
 											if (mysqli_num_rows($query_input)) {
 												while ($nilai_var = mysqli_fetch_assoc($query_input)) {
@@ -83,7 +83,7 @@
 											}
 
 											// Variabel Output
-											$query_output = mysqli_query($conn, 'SELECT d.nilai_variabel FROM tb_detail_dmu AS d, tb_variabel AS v WHERE d.id_variabel=v.id_variabel AND id_klinik='.$id_klinik.' AND v.jenis_variabel="o" ORDER BY v.jenis_variabel ASC, d.id_variabel');
+											$query_output = mysqli_query($conn, 'SELECT d.nilai_variabel FROM detail_dmu AS d, variabel AS v WHERE d.id_variabel=v.id_variabel AND id_klinik='.$id_klinik.' AND v.jenis_variabel="o" ORDER BY v.jenis_variabel ASC, d.id_variabel');
 											$count = 0;
 											if (mysqli_num_rows($query_output)) {
 												while ($nilai_var = mysqli_fetch_assoc($query_output)) {
@@ -106,7 +106,7 @@
 											';
 											$i++;
 										}
-										$q = mysqli_query($conn, 'SELECT id_klinik FROM tb_detail_dmu GROUP BY id_klinik');
+										$q = mysqli_query($conn, 'SELECT id_klinik FROM detail_dmu GROUP BY id_klinik');
 										if (mysqli_num_rows($q) == 1) {
 											echo '
 													</tbody>

@@ -7,7 +7,7 @@
 		$satuan = trim($_POST["satuan_variabel"]);
 
 		// Mengecek apakah data sudah pernah terdaftar
-		$query = 'SELECT COUNT(nama_variabel) AS total FROM tb_variabel WHERE LOWER(nama_variabel)=LOWER("'.$nama.'")';
+		$query = 'SELECT COUNT(nama_variabel) AS total FROM variabel WHERE LOWER(nama_variabel)=LOWER("'.$nama.'")';
 		if (mysqli_query($conn, $query)) {
 			$query = mysqli_query($conn, $query);
 			$data = mysqli_fetch_assoc($query);
@@ -15,16 +15,16 @@
 			if ($data['total'] > 0) {
 				// Ditemukan bahwa data telah terdaftar
 				// Tapi dalam kondisi khusus jika batal ubah (data belum disentuh) tapi tetap klik simpan
-				$query = 'SELECT COUNT(*) AS total FROM tb_variabel WHERE LOWER(nama_variabel)=LOWER("'.$nama.'") AND id_variabel="'.$id.'"';
+				$query = 'SELECT COUNT(*) AS total FROM variabel WHERE LOWER(nama_variabel)=LOWER("'.$nama.'") AND id_variabel="'.$id.'"';
 				$query = mysqli_query($conn, $query);
 				$d = mysqli_fetch_assoc($query);
 				if ($d['total'] > 0) {
 					// Mengecek jika nama var tidak berubah, tp atribut lain berubah
-					$query = 'SELECT COUNT(*) AS total FROM tb_variabel WHERE LOWER(nama_variabel)=LOWER("'.$nama.'") AND id_variabel="'.$id.'" AND jenis_variabel="'.$jenis.'" AND satuan="'.$satuan.'"';
+					$query = 'SELECT COUNT(*) AS total FROM variabel WHERE LOWER(nama_variabel)=LOWER("'.$nama.'") AND id_variabel="'.$id.'" AND jenis_variabel="'.$jenis.'" AND satuan="'.$satuan.'"';
 					$query = mysqli_query($conn, $query);
 					$data = mysqli_fetch_assoc($query);
 					if ($data['total'] == 0) {
-						$query = 'UPDATE tb_variabel SET nama_variabel="'.$nama.'", jenis_variabel="'.$jenis.'", satuan="'.$satuan.'" WHERE id_variabel="'.$id.'"';
+						$query = 'UPDATE variabel SET nama_variabel="'.$nama.'", jenis_variabel="'.$jenis.'", satuan="'.$satuan.'" WHERE id_variabel="'.$id.'"';
 						if (mysqli_query($conn, $query)) {
 						    header('Location: ../mengelola_variabel.php?balasan=5');
 						} else {
@@ -39,7 +39,7 @@
 					header('Location: ../ubah_variabel.php?id='.$id.'&balasan=1');
 				}
 			} elseif ($data['total'] == 0) { // Jika == 0 artinya belum pernah terdaftar
-				$query = 'UPDATE tb_variabel SET nama_variabel="'.$nama.'", jenis_variabel="'.$jenis.'", satuan="'.$satuan.'" WHERE id_variabel="'.$id.'"';
+				$query = 'UPDATE variabel SET nama_variabel="'.$nama.'", jenis_variabel="'.$jenis.'", satuan="'.$satuan.'" WHERE id_variabel="'.$id.'"';
 				if (mysqli_query($conn, $query)) {
 				    header('Location: ../mengelola_variabel.php?balasan=5');
 				} else {

@@ -24,7 +24,7 @@
 
 									# Menampilkan Data Tabel
 									$i=1;
-									$query = mysqli_query($conn, "SELECT * FROM tb_variabel ORDER BY id_variabel DESC");
+									$query = mysqli_query($conn, "SELECT * FROM variabel ORDER BY id_variabel DESC");
 									if (mysqli_num_rows($query) > 0) {
 										echo '
 											<table class="table table-bordered table-hover">

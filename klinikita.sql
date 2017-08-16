@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 15, 2017 at 02:53 AM
+-- Generation Time: Aug 16, 2017 at 03:28 PM
 -- Server version: 10.1.21-MariaDB
 -- PHP Version: 5.6.30
 
@@ -23,21 +23,21 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tb_detail_dmu`
+-- Table structure for table `detail_dmu`
 --
 
-CREATE TABLE `tb_detail_dmu` (
+CREATE TABLE `detail_dmu` (
   `id_detail_dmu` int(11) NOT NULL,
   `id_klinik` int(11) NOT NULL,
   `id_variabel` int(11) NOT NULL,
   `nilai_variabel` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin ROW_FORMAT=COMPACT;
 
 --
--- Dumping data for table `tb_detail_dmu`
+-- Dumping data for table `detail_dmu`
 --
 
-INSERT INTO `tb_detail_dmu` (`id_detail_dmu`, `id_klinik`, `id_variabel`, `nilai_variabel`) VALUES
+INSERT INTO `detail_dmu` (`id_detail_dmu`, `id_klinik`, `id_variabel`, `nilai_variabel`) VALUES
 (146, 3, 1, 2),
 (147, 3, 2, 36),
 (148, 3, 3, 2),
@@ -63,20 +63,20 @@ INSERT INTO `tb_detail_dmu` (`id_detail_dmu`, `id_klinik`, `id_variabel`, `nilai
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tb_klinik`
+-- Table structure for table `klinik`
 --
 
-CREATE TABLE `tb_klinik` (
+CREATE TABLE `klinik` (
   `id_klinik` int(11) NOT NULL,
   `cabang_klinik` varchar(50) COLLATE utf8_bin NOT NULL,
   `alamat` varchar(100) COLLATE utf8_bin NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin ROW_FORMAT=COMPACT;
 
 --
--- Dumping data for table `tb_klinik`
+-- Dumping data for table `klinik`
 --
 
-INSERT INTO `tb_klinik` (`id_klinik`, `cabang_klinik`, `alamat`) VALUES
+INSERT INTO `klinik` (`id_klinik`, `cabang_klinik`, `alamat`) VALUES
 (1, 'Banyumanik', 'Jl. Setiabudi No. 55'),
 (2, 'Kalipancur', 'Jl. Abdulrahman Saleh Kav. 783'),
 (3, 'Kedungmundu', 'Jl. Kedungmundu Raya, Ruko Grahawahid No. 7');
@@ -84,31 +84,10 @@ INSERT INTO `tb_klinik` (`id_klinik`, `cabang_klinik`, `alamat`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tb_manajer_pusat`
+-- Table structure for table `pengguna`
 --
 
-CREATE TABLE `tb_manajer_pusat` (
-  `id_manajer_pusat` int(11) NOT NULL,
-  `nama` varchar(50) COLLATE utf8_bin NOT NULL,
-  `username` varchar(20) COLLATE utf8_bin NOT NULL,
-  `password` varchar(50) COLLATE utf8_bin NOT NULL,
-  `level` char(1) COLLATE utf8_bin NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
-
---
--- Dumping data for table `tb_manajer_pusat`
---
-
-INSERT INTO `tb_manajer_pusat` (`id_manajer_pusat`, `nama`, `username`, `password`, `level`) VALUES
-(1, 'dr. Maulana', 'manajer_pusat', '42836637e4afa63e6ba120974d7671dc', 'p');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `tb_pengguna`
---
-
-CREATE TABLE `tb_pengguna` (
+CREATE TABLE `pengguna` (
   `id_pengguna` int(11) NOT NULL,
   `nama` varchar(50) COLLATE utf8_bin NOT NULL,
   `username` varchar(20) COLLATE utf8_bin NOT NULL,
@@ -118,10 +97,10 @@ CREATE TABLE `tb_pengguna` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin ROW_FORMAT=COMPACT;
 
 --
--- Dumping data for table `tb_pengguna`
+-- Dumping data for table `pengguna`
 --
 
-INSERT INTO `tb_pengguna` (`id_pengguna`, `nama`, `username`, `password`, `id_klinik`, `level`) VALUES
+INSERT INTO `pengguna` (`id_pengguna`, `nama`, `username`, `password`, `id_klinik`, `level`) VALUES
 (11, 'Tiffany', 'tiffany', '210dc1fd8cb4e4e43cb4961b28fac275', 2, 'c'),
 (22, 'Nadhira Luthfi Al Haddad', 'manajer_kalipancur', '993d81c33f4441beadb655551e0bc442', 2, 'm'),
 (24, 'Wahyu', 'wahyu', '32c9e71e866ecdbc93e497482aa6779f', 3, 'c'),
@@ -132,23 +111,45 @@ INSERT INTO `tb_pengguna` (`id_pengguna`, `nama`, `username`, `password`, `id_kl
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tb_perhitungan_efisiensi`
+-- Table structure for table `pengguna_khusus`
 --
 
-CREATE TABLE `tb_perhitungan_efisiensi` (
+CREATE TABLE `pengguna_khusus` (
+  `id_pengguna_khusus` int(11) NOT NULL,
+  `nama` varchar(50) COLLATE utf8_bin NOT NULL,
+  `username` varchar(20) COLLATE utf8_bin NOT NULL,
+  `password` varchar(50) COLLATE utf8_bin NOT NULL,
+  `level` char(1) COLLATE utf8_bin NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin ROW_FORMAT=COMPACT;
+
+--
+-- Dumping data for table `pengguna_khusus`
+--
+
+INSERT INTO `pengguna_khusus` (`id_pengguna_khusus`, `nama`, `username`, `password`, `level`) VALUES
+(1, 'dr. Maulana', 'manajer_pusat', '42836637e4afa63e6ba120974d7671dc', 'p'),
+(2, 'Superadmin', 'superadmin', '17c4520f6cfd1ab53d8745e84681eb49', 'a');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `perhitungan_efisiensi`
+--
+
+CREATE TABLE `perhitungan_efisiensi` (
   `id_perhitungan_efisiensi` int(11) NOT NULL,
   `id_klinik` int(11) NOT NULL,
   `id_variabel` int(11) NOT NULL,
   `nilai_efisiensi` double NOT NULL,
   `rekomendasi` int(11) NOT NULL,
   `nilai_awal` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin ROW_FORMAT=COMPACT;
 
 --
--- Dumping data for table `tb_perhitungan_efisiensi`
+-- Dumping data for table `perhitungan_efisiensi`
 --
 
-INSERT INTO `tb_perhitungan_efisiensi` (`id_perhitungan_efisiensi`, `id_klinik`, `id_variabel`, `nilai_efisiensi`, `rekomendasi`, `nilai_awal`) VALUES
+INSERT INTO `perhitungan_efisiensi` (`id_perhitungan_efisiensi`, `id_klinik`, `id_variabel`, `nilai_efisiensi`, `rekomendasi`, `nilai_awal`) VALUES
 (1, 1, 1, 0.85227272727273, 2, 3),
 (2, 1, 3, 0.85227272727273, 1, 5),
 (3, 1, 4, 0.85227272727273, 6, 6),
@@ -168,42 +169,21 @@ INSERT INTO `tb_perhitungan_efisiensi` (`id_perhitungan_efisiensi`, `id_klinik`,
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tb_superadmin`
+-- Table structure for table `variabel`
 --
 
-CREATE TABLE `tb_superadmin` (
-  `id_superadmin` int(11) NOT NULL,
-  `nama` varchar(50) COLLATE utf8_bin NOT NULL,
-  `username` varchar(20) COLLATE utf8_bin NOT NULL,
-  `password` varchar(50) COLLATE utf8_bin NOT NULL,
-  `level` char(1) COLLATE utf8_bin NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
-
---
--- Dumping data for table `tb_superadmin`
---
-
-INSERT INTO `tb_superadmin` (`id_superadmin`, `nama`, `username`, `password`, `level`) VALUES
-(1, 'superadmin', 'superadmin', '17c4520f6cfd1ab53d8745e84681eb49', 'a');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `tb_variabel`
---
-
-CREATE TABLE `tb_variabel` (
+CREATE TABLE `variabel` (
   `id_variabel` int(11) NOT NULL,
   `nama_variabel` varchar(50) COLLATE utf8_bin NOT NULL,
   `jenis_variabel` char(1) COLLATE utf8_bin NOT NULL,
   `satuan` varchar(50) COLLATE utf8_bin NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin ROW_FORMAT=COMPACT;
 
 --
--- Dumping data for table `tb_variabel`
+-- Dumping data for table `variabel`
 --
 
-INSERT INTO `tb_variabel` (`id_variabel`, `nama_variabel`, `jenis_variabel`, `satuan`) VALUES
+INSERT INTO `variabel` (`id_variabel`, `nama_variabel`, `jenis_variabel`, `satuan`) VALUES
 (1, 'Dokter Umum', 'i', 'Orang'),
 (2, 'Omset', 'o', 'Juta Rupiah'),
 (3, 'Dokter Gigi', 'i', 'Orang'),
@@ -217,45 +197,39 @@ INSERT INTO `tb_variabel` (`id_variabel`, `nama_variabel`, `jenis_variabel`, `sa
 --
 
 --
--- Indexes for table `tb_detail_dmu`
+-- Indexes for table `detail_dmu`
 --
-ALTER TABLE `tb_detail_dmu`
+ALTER TABLE `detail_dmu`
   ADD PRIMARY KEY (`id_detail_dmu`);
 
 --
--- Indexes for table `tb_klinik`
+-- Indexes for table `klinik`
 --
-ALTER TABLE `tb_klinik`
+ALTER TABLE `klinik`
   ADD PRIMARY KEY (`id_klinik`);
 
 --
--- Indexes for table `tb_manajer_pusat`
+-- Indexes for table `pengguna`
 --
-ALTER TABLE `tb_manajer_pusat`
-  ADD PRIMARY KEY (`id_manajer_pusat`);
-
---
--- Indexes for table `tb_pengguna`
---
-ALTER TABLE `tb_pengguna`
+ALTER TABLE `pengguna`
   ADD PRIMARY KEY (`id_pengguna`);
 
 --
--- Indexes for table `tb_perhitungan_efisiensi`
+-- Indexes for table `pengguna_khusus`
 --
-ALTER TABLE `tb_perhitungan_efisiensi`
+ALTER TABLE `pengguna_khusus`
+  ADD PRIMARY KEY (`id_pengguna_khusus`);
+
+--
+-- Indexes for table `perhitungan_efisiensi`
+--
+ALTER TABLE `perhitungan_efisiensi`
   ADD PRIMARY KEY (`id_perhitungan_efisiensi`);
 
 --
--- Indexes for table `tb_superadmin`
+-- Indexes for table `variabel`
 --
-ALTER TABLE `tb_superadmin`
-  ADD PRIMARY KEY (`id_superadmin`);
-
---
--- Indexes for table `tb_variabel`
---
-ALTER TABLE `tb_variabel`
+ALTER TABLE `variabel`
   ADD PRIMARY KEY (`id_variabel`);
 
 --
@@ -263,40 +237,35 @@ ALTER TABLE `tb_variabel`
 --
 
 --
--- AUTO_INCREMENT for table `tb_detail_dmu`
+-- AUTO_INCREMENT for table `detail_dmu`
 --
-ALTER TABLE `tb_detail_dmu`
-  MODIFY `id_detail_dmu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=170;
+ALTER TABLE `detail_dmu`
+  MODIFY `id_detail_dmu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=167;
 --
--- AUTO_INCREMENT for table `tb_klinik`
+-- AUTO_INCREMENT for table `klinik`
 --
-ALTER TABLE `tb_klinik`
-  MODIFY `id_klinik` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+ALTER TABLE `klinik`
+  MODIFY `id_klinik` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
--- AUTO_INCREMENT for table `tb_manajer_pusat`
+-- AUTO_INCREMENT for table `pengguna`
 --
-ALTER TABLE `tb_manajer_pusat`
-  MODIFY `id_manajer_pusat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+ALTER TABLE `pengguna`
+  MODIFY `id_pengguna` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 --
--- AUTO_INCREMENT for table `tb_pengguna`
+-- AUTO_INCREMENT for table `pengguna_khusus`
 --
-ALTER TABLE `tb_pengguna`
-  MODIFY `id_pengguna` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+ALTER TABLE `pengguna_khusus`
+  MODIFY `id_pengguna_khusus` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
--- AUTO_INCREMENT for table `tb_perhitungan_efisiensi`
+-- AUTO_INCREMENT for table `perhitungan_efisiensi`
 --
-ALTER TABLE `tb_perhitungan_efisiensi`
+ALTER TABLE `perhitungan_efisiensi`
   MODIFY `id_perhitungan_efisiensi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 --
--- AUTO_INCREMENT for table `tb_superadmin`
+-- AUTO_INCREMENT for table `variabel`
 --
-ALTER TABLE `tb_superadmin`
-  MODIFY `id_superadmin` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
---
--- AUTO_INCREMENT for table `tb_variabel`
---
-ALTER TABLE `tb_variabel`
-  MODIFY `id_variabel` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+ALTER TABLE `variabel`
+  MODIFY `id_variabel` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

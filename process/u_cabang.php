@@ -6,7 +6,7 @@
 		$alamat = trim($_POST['alamat']);
 
 		// Mengecek apakah data sudah pernah terdaftar
-		$query = 'SELECT COUNT(cabang_klinik) AS total FROM tb_klinik WHERE LOWER(cabang_klinik)=LOWER("'.$cabang.'") AND LOWER(alamat)=LOWER("'.$alamat.'")';
+		$query = 'SELECT COUNT(cabang_klinik) AS total FROM klinik WHERE LOWER(cabang_klinik)=LOWER("'.$cabang.'") AND LOWER(alamat)=LOWER("'.$alamat.'")';
 		if (mysqli_query($conn, $query)) {
 			$query = mysqli_query($conn, $query);
 			$data = mysqli_fetch_assoc($query);
@@ -14,14 +14,14 @@
 			if ($data['total'] > 0) {
 				// Ditemukan bahwa data telah terdaftar
 				// Tapi dalam kondisi khusus jika batal ubah (data belum disentuh) tapi tetap klik simpan
-				$query = 'SELECT COUNT(*) AS total FROM tb_klinik WHERE LOWER(cabang_klinik)=LOWER("'.$cabang.'") AND LOWER(alamat)=LOWER("'.$alamat.'") AND id_klinik="'.$id.'"';
+				$query = 'SELECT COUNT(*) AS total FROM klinik WHERE LOWER(cabang_klinik)=LOWER("'.$cabang.'") AND LOWER(alamat)=LOWER("'.$alamat.'") AND id_klinik="'.$id.'"';
 				$query = mysqli_query($conn, $query);
 				$d = mysqli_fetch_assoc($query);
 				if ($d['total'] > 0) {
 					// Maka tidak ada notifikasi karna data tidak berubah sama sekali
 					header('Location: ../mengelola_cabang.php');
 				} else {
-					$query2 = 'SELECT COUNT(*) AS total FROM tb_klinik WHERE LOWER(cabang_klinik)=LOWER("'.$cabang.'") OR LOWER(alamat)=LOWER("'.$alamat.'")';
+					$query2 = 'SELECT COUNT(*) AS total FROM klinik WHERE LOWER(cabang_klinik)=LOWER("'.$cabang.'") OR LOWER(alamat)=LOWER("'.$alamat.'")';
 					if (mysqli_query($conn, $query2)) {
 						$query2 = mysqli_query($conn, $query2);
 						$data2 = mysqli_fetch_assoc($query2);
@@ -32,18 +32,18 @@
 					}
 				}
 			} elseif ($data['total'] == 0) { // Jika == 0 artinya belum pernah terdaftar
-				$query3 = 'SELECT COUNT(*) AS total FROM tb_klinik WHERE LOWER(cabang_klinik)=LOWER("'.$cabang.'") OR LOWER(alamat)=LOWER("'.$alamat.'")';
+				$query3 = 'SELECT COUNT(*) AS total FROM klinik WHERE LOWER(cabang_klinik)=LOWER("'.$cabang.'") OR LOWER(alamat)=LOWER("'.$alamat.'")';
 				if (mysqli_query($conn, $query3)) {
 					$query3 = mysqli_query($conn, $query3);
 					$data3 = mysqli_fetch_assoc($query3);
 					if ($data3['total'] > 0) {
 						// Jika hanya mengubah salah satu diantara nama cabang atau alamat cabang
 						// Dan tidak ada data yang diubah tidak duplikat terhadap data di db
-						$q = mysqli_query($conn, 'SELECT COUNT(*) AS total FROM tb_klinik WHERE LOWER(cabang_klinik)=LOWER("'.$cabang.'") AND LOWER(alamat)=LOWER("'.$alamat.'") AND id_klinik="'.$id.'"');
+						$q = mysqli_query($conn, 'SELECT COUNT(*) AS total FROM klinik WHERE LOWER(cabang_klinik)=LOWER("'.$cabang.'") AND LOWER(alamat)=LOWER("'.$alamat.'") AND id_klinik="'.$id.'"');
 						$d = mysqli_fetch_assoc($q);
 						if ($d['total'] == 0) {
 							// Data disimpan
-							$query = 'UPDATE tb_klinik SET cabang_klinik="'.$cabang.'", alamat="'.$alamat.'" WHERE id_klinik="'.$id.'"';
+							$query = 'UPDATE klinik SET cabang_klinik="'.$cabang.'", alamat="'.$alamat.'" WHERE id_klinik="'.$id.'"';
 							if (mysqli_query($conn, $query)) {
 								header('Location: ../mengelola_cabang.php?balasan=5');
 							} else {
@@ -55,7 +55,7 @@
 						}
 					} else {
 						// Data belum terdaftar sama sekali
-						$query = 'UPDATE tb_klinik SET cabang_klinik="'.$cabang.'", alamat="'.$alamat.'" WHERE id_klinik="'.$id.'"';
+						$query = 'UPDATE klinik SET cabang_klinik="'.$cabang.'", alamat="'.$alamat.'" WHERE id_klinik="'.$id.'"';
 						if (mysqli_query($conn, $query)) {
 						    header('Location: ../mengelola_cabang.php?balasan=5');
 						} else {

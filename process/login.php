@@ -5,9 +5,8 @@
 		// Login Berhasil
 		$username = test_input($_POST['username']);
 		$password = md5($_POST['password']);
-		$query = mysqli_query($conn, "SELECT * FROM tb_pengguna WHERE username='".$username."' AND password='".$password."'");
-		$query2 = "SELECT * FROM tb_superadmin WHERE username='".$username."' AND password='".$password."'";
-		$query3 = "SELECT * FROM tb_manajer_pusat WHERE username='".$username."' AND password='".$password."'";
+		$query = mysqli_query($conn, "SELECT * FROM pengguna WHERE username='".$username."' AND password='".$password."'");
+		$query2 = "SELECT * FROM pengguna_khusus WHERE username='".$username."' AND password='".$password."'";
 		if(mysqli_num_rows($query) > 0){
 			// Username dan Password Benar
 			while($data = mysqli_fetch_assoc($query)){
@@ -36,29 +35,25 @@
 				// Username dan Password Benar
 				$data = mysqli_fetch_assoc($query2);
 				$level = $data['level'];
-				$id = $data['id_superadmin'];
+				$id = $data['id_pengguna_khusus'];
 				$_SESSION['username'] = $username;
 				$_SESSION['password'] = $password;
 				$_SESSION['id'] = $id;
 				$_SESSION['level'] = $level;
-				// Admin
-				$_SESSION['user'] = "Superadmin";
-				header("location: ../beranda.php");
-			} elseif (mysqli_query($conn, $query3)) {
-				$query3 = mysqli_query($conn, $query3);
-				if (mysqli_num_rows($query3) > 0) {
-					// Username dan Password Benar
-					$data = mysqli_fetch_assoc($query3);
-					$level = $data['level'];
-					$id = $data['id_manajer_pusat'];
-					$_SESSION['username'] = $username;
-					$_SESSION['password'] = $password;
-					$_SESSION['id'] = $id;
-					$_SESSION['level'] = $level;
+				if ($level == 'a') {
+					// Superadmin
+					$_SESSION['user'] = "Superadmin";
+					header("location: ../beranda.php");
+				} elseif ($level == 'p') {
 					// Manajer Pusat
 					$_SESSION['user'] = "Manajer Pusat";
 					header("location: ../beranda.php");
 				}
+				
+			} else {
+				// Username tidak terdaftar
+				$_SESSION['error'] = "<strong>Username</strong> tidak terdaftar";
+				header("location: ../index.php");
 			}
 		} else {
 			// Username dan atau Password Salah

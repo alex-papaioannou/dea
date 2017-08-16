@@ -23,7 +23,7 @@
 								  			# Admin Cabang
 								  			echo '<legend>Tambah Manajer Cabang</legend>';
 								  			// Mendapatkan cabang klinik
-								  			$q = mysqli_query($conn, 'SELECT * FROM tb_pengguna WHERE id_pengguna="'.$id.'"');
+								  			$q = mysqli_query($conn, 'SELECT * FROM pengguna WHERE id_pengguna="'.$id.'"');
 								  			$d = mysqli_fetch_assoc($q);
 								  		}
 
@@ -56,7 +56,7 @@
 								        	<select name="cabang_klinik" class="form-control" <?php if ($level == 'c') { echo 'disabled'; } ?> required>
 								        		<option value=""> -- Pilih Cabang -- </option>
 								        		<?php
-								        			$query = mysqli_query($conn, "SELECT * FROM tb_klinik");
+								        			$query = mysqli_query($conn, "SELECT * FROM klinik");
 								        			if (mysqli_num_rows($query) > 0) {
 													    // output data of each row
 													    while($cabang = mysqli_fetch_assoc($query)) {

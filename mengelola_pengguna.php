@@ -22,7 +22,7 @@
 						  			# Admin Cabang
 						  			echo '<legend>Daftar Manajer Cabang</legend>';
 						  			// Mendapatkan cabang klinik
-								  	$q = mysqli_query($conn, 'SELECT * FROM tb_pengguna WHERE id_pengguna="'.$id.'"');
+								  	$q = mysqli_query($conn, 'SELECT * FROM pengguna WHERE id_pengguna="'.$id.'"');
 								  	$d = mysqli_fetch_assoc($q);
 								  	$cabang_klinik = $d['id_klinik'];
 						  		}
@@ -46,10 +46,10 @@
 								$i=1;
 								if ($level == 'a') {
 									# Login sebagai Superadmin
-									$query = mysqli_query($conn, "SELECT * FROM tb_pengguna AS p, tb_klinik AS k WHERE p.id_klinik = k.id_klinik AND p.level = 'c' ORDER BY p.id_pengguna DESC");
+									$query = mysqli_query($conn, "SELECT * FROM pengguna AS p, klinik AS k WHERE p.id_klinik = k.id_klinik AND p.level = 'c' ORDER BY p.id_pengguna DESC");
 								} else {
 									# Login sebagai Admin Cabang
-									$query = mysqli_query($conn, 'SELECT * FROM tb_pengguna AS p, tb_klinik AS k WHERE p.id_klinik = k.id_klinik AND p.level = "m" AND p.id_klinik = "'.$cabang_klinik.'" ORDER BY p.id_pengguna DESC');
+									$query = mysqli_query($conn, 'SELECT * FROM pengguna AS p, klinik AS k WHERE p.id_klinik = k.id_klinik AND p.level = "m" AND p.id_klinik = "'.$cabang_klinik.'" ORDER BY p.id_pengguna DESC');
 								}
 											
 								if (mysqli_num_rows($query) > 0) {

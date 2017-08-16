@@ -1,7 +1,7 @@
 <?php 
 	include 'layout.php'; 
 	$id = $_GET['id'];
-	$query = mysqli_query($conn, 'SELECT * FROM tb_klinik WHERE id_klinik='.$id.'');
+	$query = mysqli_query($conn, 'SELECT * FROM klinik WHERE id_klinik='.$id.'');
 	if (mysqli_num_rows($query) > 0) {
 		// output data of each row
 		while($cabang = mysqli_fetch_assoc($query)) {
