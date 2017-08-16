@@ -2,8 +2,6 @@
 
 > Note : Perhitungan nilai rekomendasi untuk DMU (Decision Making Unit) yang belum efisien (nilai efisiensi < 1) menggunakan DEA model CCR (Charnes Cooper Rhodes) Input-Oriented
 
-
-
 ## Daftar User
 | No | Username | Password | Level | Cabang Klinik |
 | :-: | :-: | :-: | :-: | :-: |
@@ -16,7 +14,7 @@
 | 7 | manajer_kalipancur | kalipancur | Manajer Cabang | Kalipancur |
 | 8 | manajer_kedungmundu | kedungmundu | Manajer Cabang | Kedungmundu |
 
-## System Requirement Specification (SRS) :
+## System Requirement Specification (SRS)
 1. Autentikasi
 2. CRUD Cabang
 3. CRUD Pengguna
